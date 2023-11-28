@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Search Posts {% endblock %}
+
+{% block content %}
+<div class = "form">
+<section class="container  content ">
+
+    <h1 class = "text-uppercase fw-bold fs-1 text-center">Search results for "{{ request.GET.search }}"</h1>
+
+   
+        <table class="table">
+            <thead>
+              <tr>
+                <a href=""><th scope="col">Title</th></a> 
+                <th scope="col">Content</th>
+                <th scope="col">Publish status</th>
+                <th scope="col">Category</th>
+                <th scope="col"> Published Time </th>
+                <th scope="col"> Image </th>
+              </tr>
+            </thead>
+            <div class="dropdown mb-3 d-flex justify-content-between ">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Category
+              </button>
+              <ul class="dropdown-menu ">
+                <li><a class="dropdown-item" href="{% url 'blog:displayBlog' %}?category=Food">Food</a></li>
+                <li><a class="dropdown-item" href="{% url 'blog:displayBlog' %}?category=Travel">Travel</a></li>
+                <li><a class="dropdown-item" href="{% url 'blog:displayBlog' %}?category=Art">Art</a></li>
+                <li><a class="dropdown-item" href="{% url 'blog:displayBlog' %}?category=News">News</a></li>
+              </ul>
+             
+            </div>
+        {% for blog in blogs %}
+
+            <div class="col-6 ">
+         
+
+                <tbody>
+                  <tr>
+                   
+                    <td><a href="{% url 'blog:detailsBlog' blog.id %}">{{ blog.title }}</a></td>
+                    <td>{{blog.content}}</td>
+                    <td> {{ blog.is_published }}</td>
+                    <td> {{ blog.category }}</td>
+                    <td> {{ blog.published_at }}</td>
+                    <td><img width="70px" height="70px" src="{{blog.image.url}}" /></td>
+                  </tr>
+                  </tbody>
+                  
+            </div>
+              
+
+
+        {% endfor %}
+
+    </table>
+
+</section>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}BLog{% endblock %}
+
+
+{% block content  %}
+<div class = "form">
+<div class = "container content">
+    <div class = "row pb-5">
+        <h1 class = "text-uppercase fw-bold fs-1 text-center">Welcome to blog Website</h1>
+    </div>
+   
+        <div class = "button">
+            <a href="{% url 'blog:addBlog' %}" class="btn btn-dark text-center ">ADD POST</a>
+              
+        </div>
+        <div class = "button2">
+            
+            <a href="{% url 'blog:displayBlog' %}" class="btn btn-dark text-center  ">DISPLAY POSTS</a>
+        </div>
+        
+
+    
+   
+
+</div>
+</div>
+{% endblock %}

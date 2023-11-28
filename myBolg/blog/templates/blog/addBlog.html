@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add post {% endblock %}
+
+{% block content %}
+<div class = "form">
+<section class="container content">
+
+    <h1>Add new post</h1>
+
+    <div class="row">
+
+        <div class="col-6">
+           
+
+            <form action="{% url 'blog:addBlog' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Post Title:</label>
+                <input class="form-control mt-3" type="text" name="title"  />
+
+                <label>Post Content:</label>
+                <textarea class="form-control mt-3" name="content"></textarea>
+
+                <label>Has it been published?:</label>
+                <select name="is_published" class="form-select mt-3">
+                    <option value="True">yes</option>
+                    <option value="False">no</option>     
+                </select>
+                 
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                <label>published time:</label>
+                <input class="form-control mt-3" name="published_at" type="datetime-local" />
+                
+                <label>Post Image:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+
+                <input class="btn btn-dark mt-3" type="submit" value="Create Post" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+</div>
+{% endblock %}

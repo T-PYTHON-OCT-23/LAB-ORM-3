@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Update {{ blog.title }} {% endblock %}
+
+{% block content %}
+<div class = "form">
+<section class="container content">
+
+    <h1>update {{ blog.title }}</h1>
+
+    <div class="row">
+
+        <div class="col-6">
+           
+
+            <form action="{% url 'blog:updateBlog' blog.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Post Title:</label>
+                <input class="form-control mt-3" type="text" name="title" value = "{{ blog.title }}" />
+
+                <label>Post Content:</label>
+                <textarea class="form-control mt-3" name="content">{{blog.content}}</textarea>
+
+                <label>Has it been published?:</label>
+                <select name="is_published" class="form-select mt-3">
+                    <option value="True" {% if blog.is_published == True %} selected {% endif %}>yes</option>
+                    <option value="False" {% if blog.is_published  == False %} selected {% endif %}>no</option>     
+                </select>
+             
+                <label>Category post:</label>
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if blog.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                <label>published time:</label>
+                <input class="form-control mt-3" name="published_at" type="datetime-local"  value = "{{blog.published_at | date:'Y-m-d'}} {{ blog.published_at|time:'H:i' }}"/>
+             
+                <label>Post Image:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+
+                <input class="btn btn-dark mt-3" type="submit" value="Update Post" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+</div>
+{% endblock %}

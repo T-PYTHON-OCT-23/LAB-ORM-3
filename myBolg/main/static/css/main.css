@@ -1,0 +1,29 @@
+
+.form{
+    background-color: rgba(229, 214, 179, 0.689);
+    padding: 30vh 15vw;
+    
+   
+  }
+
+  .content{
+    margin-top: auto;
+  width: 50%;
+  border: 3px solid rgb(255, 255, 255);
+  padding-bottom:  30px;
+  
+  }
+
+  .button{
+    margin-left: 370px;
+    margin-bottom: 30px;
+    
+  }
+  .button2{
+    margin-left: 355px;
+  }
+
+img{
+    width: 30px;
+    height: 30px;
+}
