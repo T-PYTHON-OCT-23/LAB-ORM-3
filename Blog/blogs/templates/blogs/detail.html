@@ -1,0 +1,83 @@
+{% extends 'main/base.html' %}
+{% block title%} show blogs {%endblock%}
+
+
+{% block content %}
+
+<section class="container">
+
+  
+
+    <div class="row">
+
+
+          <div class="col-10 m-2">
+                      <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                          <h2>{{ blog.title }}</h2>
+                          <h5>{{blog.category }}</h5>
+                          <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                            <img src="{{blog.poster.url}}" />
+                            <div class="d-flex justify-content-between">
+                              <h5>Published at : {{ blog.published_at }} </h5>
+                              <div class="dropdown">
+                                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{% url 'blogs:blog_update_view' blog.id %}">update</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'blogs:blog_delete_view' blog.id %}">Delete</a></li>
+                                  </ul>
+                              </div>
+                           </div>
+                          
+                          <p> Blog content :  {{ blog.content }}</p>
+                          
+                      </div>
+                </div>
+         </div>
+    </div>
+
+
+  <section class="row mt-5">
+    <h2>Add Review Reviews:</h2>
+    <div class="col-6">
+
+      <form class="d-flex flex-column gap-2" action="{% url 'blogs:blog_detail_view' blog.id  %}" method="POST">
+        {% csrf_token %}
+        <input type="text" class="form-control"  name="full_name" placeholder="Full Name"/>
+        <select class="form-select" name="rating">
+          <option value="1">1 Star</option>
+          <option value="2">2 Star</option>
+          <option value="3">3 Star</option>
+          <option value="4">4 Star</option>
+          <option value="5">5 Star</option>
+        </select>
+
+        <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+
+        <input type="submit" value="Add Review" class="btn btn-primary" />
+      </form>
+    </div>
+  </section>
+
+  <section class="row">
+
+    <h2>Rreviews:</h2>
+      <div class="col">
+        <div class="d-flex flex-column gap-2">
+          {% for review in reviews %}
+          <div class="d-flex flex-column gap-2 border border-1 p-3">
+            <h3 >{{ review.full_name }}</h3>
+            <h6 class="text-muted">{{ review.created_at }}</h6>
+            <p>{{ review.comment }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+  </section>
+  
+
+</section>
+
+
+{% endblock %}

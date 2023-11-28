@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title%} home {%endblock%}
+
+{% block content %}
+<div class="container">
+<section class="row gap-2 border border-2 p-3">
+    <h2>last comment:</h2>
+      <div class="col">
+        <div class="d-flex flex-column gap-2">
+          {% for Review in Reviews %}
+          <div class="d-flex flex-column gap-2 border border-1 p-3">
+            <h2 > Title blog : '{{ Review.blog.title }}'</h2>
+
+            <h3 > comment by : '{{ Review.full_name }}'</h3>
+            <h6 class="text-muted">{{ Review.created_at }}</h6>
+            <p>{{ Review.comment }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+
+</section>
+<hr class="mt-5"/>
+<section class="row mt-5 gap-2 border border-2 p-3">
+    <h2>last Blogs:</h2>
+      <div class="col">
+        <div class="d-flex flex-column gap-2">
+          {% for blog in blogs %}
+          <div class="d-flex flex-column gap-2 border border-1 p-3">
+            <h3 > Title Blog : '{{ blog.title }}'</h3>
+            <h6 class="text-muted"> published at :{{ blog.published_at }}</h6>
+            <p>{{ blog.content }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+</section>
+</div>
+
+{% endblock %}

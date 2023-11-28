@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block title%} show blogs {%endblock%}
+
+
+{% block content %}
+
+<section class="container">
+
+    <h1>All Blogs </h1>
+
+    <div class="row">
+
+        {% for blog in blogs %}
+            {% if blog.is_published  == True %}
+
+                <div class="col-10 m-2">
+                    <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                        <img src="{{blog.poster.url}}" />
+                        <a class="text-decoration-none text-black" href="{% url 'blogs:blogs_home_view_cat' blog.category %}">{{blog.category}}</a></span>
+                        <a href="{% url 'blogs:blog_detail_view' blog.id %}"><h2>{{ blog.title }}</h2></a>
+                    </div>
+                    <div class="d-flex gap-1">
+                    </div>
+
+                </div>
+            {% endif %}
+
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
