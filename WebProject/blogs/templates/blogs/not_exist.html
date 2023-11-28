@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Page Not exist {% endblock %}
+
+{% block content %}
+
+
+<div class="box-2 p-5 m-5">
+    <div class="row">
+        <div class="title col">
+            <h1 class="display-1">Page Not Found<span class="material-symbols-outlined">warning</span></h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <h2 class="text-center">Try to add a new blog </h2>
+                <a class="btn btn-primary" href="{% url 'blogs:add_blog_view' %}"> Add new blog</a>
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

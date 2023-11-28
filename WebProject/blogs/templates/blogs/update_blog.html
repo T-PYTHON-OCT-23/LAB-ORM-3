@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Update {{blog.title}} {% endblock %}
+
+{% block content%}
+
+<div class="container">
+    <div class="row m-5">
+        <h2> Updated {{ blog.title }} :</h2>
+        <div class="col">
+            <form action="{% url 'blogs:update_blog_view' blog.id %}" method="POST">
+
+                {% csrf_token %}
+            <label>Blog title:</label>
+            <input class="form-control" type="text" name="title" placeholder="Blog title" value="{{blog.title}}"/>
+
+            <label>Blog content:</label>
+            <textarea class="form-control" name="content">{{ blog.content}}</textarea>
+
+            <label>Is published:</label>
+            <select name="is_published" class="form-select">
+                <option value=True {% if blog.is_published == True %} selected {% endif %}>Yes</option>
+                <option value=False {% if blog.is_published != True %} selected {% endif %}>No</option>
+            </select>
+
+            <label>Category:</label>
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if blog.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">{{value}}</label>
+                    </div>
+                {% endfor %}
+
+    
+            <label>Published at:</label>
+            <input class="form-control" name="published_at" type="date" value="{{blog.published_at|date:'Y-m-d'}}">
+
+            <input class="btn btn-outline-success mt-3" type="submit" value="Update blog"/>
+
+            
+
+            </form>
+            
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+

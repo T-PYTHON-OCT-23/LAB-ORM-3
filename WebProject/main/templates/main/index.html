@@ -1,0 +1,78 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 text-center mt-5">
+                <h2 class="display-1">Blogs Website<span class="material-symbols-outlined">favorite</span></h2>
+                <h3>Inspire your mind, engage your senses, and transform your understanding.</h3>
+                <p class="d-flex justify-content-center align-items-center">A blog, short for weblog, is a frequently updated web page used for personal commentary or business content. Blogs are often interactive and include sections at the bottom of individual blog posts where readers can leave comments.</p>
+            </div>
+            <div class="col-6">
+                <img class="h-200 w-100" src="{% static 'images/office_12.jpg' %}" />
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    
+<div class="container">
+   <div class="row">
+    <h2 class="display-4 text-center">Discover our services</h2>
+    <div class="col-4 p-5">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title text-center">Create a blog<span class="material-symbols-outlined">edit_note</span></h5>
+              <p class="card-text text-center">You can add a new blog and stores your blog's data..</p>
+            </div>
+          </div>
+
+    </div>
+    <div class="col-4 p-5">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title text-center">Accessible<span class="material-symbols-outlined">edit_document</span></h5>
+              <p class="card-text text-center">You can edit and delete your own blogs.</p>
+            </div>
+          </div>
+
+    </div>
+    <div class="col-4 p-5">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title text-center">Attach images<span class="material-symbols-outlined">image</span></h5>
+              <p class="card-text text-center">You have the ability to add images with your blogs.</p>
+            </div>
+          </div>
+
+    </div>
+
+   </div>
+
+</div>
+
+<hr/>
+
+
+<div class="row m-5">
+  <h2 class="display-4 text-danger">The latest ({{ reviews.count }}) Reviews:</h2>
+  <div class="col ">
+      <div class="d-flex flex-column gap-2">
+        {% for review in reviews %}
+        <div class="d-flex flex-column card border-danger mb-3 p-3">
+          <h3 class="display-6"> Author name: {{ review.author_name }}</h3>
+          <h6 class="text-muted"> Title: {{ review.title }}</h6>
+          <h6> Summary: {{review.summary }}</h6>
+          <p>Rating: {{ review.rating }}</p>
+          <h6>Published at: {{ review.published_at }}</h6>
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+<hr/>
+
+
+
+{% endblock %}

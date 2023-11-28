@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add New blog {% endblock %}
+
+{% block content %}
+
+<section class="container-1 m-5">
+
+    <h1 class="display-1 text-center">Add new blog</h1>
+
+    <div class="row">
+
+        <div class="col-12">
+            <!-- form for submitting the data -->
+
+            <form action="{% url 'blogs:add_blog_view' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Title:</label>
+                <input class="form-control" type="text" name="title" placeholder="Title" />
+
+                <label>Content:</label>
+                <textarea class="form-control" name="content"></textarea>
+
+                <label>is published:</label>
+                <select name="is_published" class="form-select">
+                    <option value=True>Yes</option>
+                    <option value=False>No</option>
+                </select>
+
+                <label>Category</label>
+
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                        <label class="form-check-label" for="{{key}}">{{value}}</label>
+                    </div>
+                {% endfor %}
+
+                
+                <label>Blog image:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+
+                <label>published Date:</label>
+                <input class="form-control" name="published_at" type="date" />
+                
+                <input class="btn btn-success m-3" type="submit" value="Create Blog" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

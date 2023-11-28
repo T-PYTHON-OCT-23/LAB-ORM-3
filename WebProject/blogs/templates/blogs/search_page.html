@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All Blogs {% endblock %}
+
+{% block content %}
+
+<section class="container-2 m-3 p-5">
+    <h1 class="display-1 text-center">All Blogs</h1>
+    <h3 class="display-6 p-4 ">Join us on a journey of discovery and personal growth <a class="btn btn-outline-success" href="{% url 'blogs:add_blog_view' %}">Add new blog</a></h3>
+    <h1>Search results for : {{ request.GET.search }} ({{ blogs.count }})</h1>
+
+        <div class="row">
+            {% for blog in blogs %}
+            <div class="col-3">
+                
+                    <div class="card d-flex justify-content-center h-100" style="width: 18rem;">
+                        <img src="{{blog.image.url}}" class="text-center h-100 w-100">
+                        <div class="card-body h-200">
+                            <a href="{% url 'blogs:blogs_details_view' blog.id %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h5>{{ blog.title }}</h5></a>
+                            <h6>is published:{{blog.is_published}}</h6>
+                            <h6>published at : {{ blog.published_at }} </h6>
+                            <p class="card-text">Category: {{ blog.category}}</p>
+                                <div class="btn-group">
+                                    <button type="button" class="btn  btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Edit blog
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{% url 'blogs:update_blog_view' blog.id %}">Update blog</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'blogs:delete_blog_view' blog.id %}">Delete blog</a></li>
+                                    </ul>
+                                </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+
+            
+            {% endfor %}
+
+
+        </div>
+            
+
+</section>
+
+
+
+{% endblock %}
