@@ -1,0 +1,58 @@
+{% extends 'main/base.html' %}
+{% block title %}   Read Post  {%endblock%}
+
+
+{% block content %}
+
+<section class="container ">
+    <h1>All blogs</h1>
+    <div class="row">
+        {% for blog in blogs %}
+
+            <div class="col-4 g-5">
+                <div class="d-flex flex-column gap-2 p-3 rounded-4 shadow h-100">
+                    <img src="{{blog.image.url}}" />
+                    <a href="{% url 'blogApp:detail_blog_view' blog.id %}">  <h2> {{ blog.title }} {{blog.id}}</h2>  </a>
+                    <h4> content:  {{blog.content}}</h4>
+                    <h4>published_at: <h5 class="opacity-50">{{ blog.published_at }} </h5> </h4>
+            
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+
+
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-6">
+                <div class="card" >
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+        </div>
+
+
+        <div class="col-6">
+                <div class="card" >
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                
+                </div>
+        </div>
+    </div>
+</div> -->
+
+
+{% endblock %}
