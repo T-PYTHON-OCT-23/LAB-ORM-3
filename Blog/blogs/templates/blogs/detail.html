@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+{% block title%} {{ blog.title }} {%endblock%}
+
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Blog details  </h1>
+
+    <div class="row">
+
+
+                <div class="col-10 m-2">
+                    <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                        <h2>{{ blog.title }}</h2>
+                        <h3>{{ blog.category }}</h3>
+                        <img src="{{blog.poster.url}}" />
+                        <div class="d-flex justify-content-between">
+                            <h5>Published at : {{ blog.published_at }} </h5>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Dropdown button
+                                </button>
+                                <ul class="dropdown-menu">
+                                  <li><a class="dropdown-item" href="{% url 'blogs:blog_update_view' blog.id %}">update</a></li>
+                                  <li><a class="dropdown-item" href="{% url 'blogs:blog_delete_view' blog.id %}">Delete</a></li>
+                                </ul>
+                              </div>
+                        </div>
+                        
+                        <p> Blog content :  {{ blog.content }}</p>
+                        
+                    </div>
+                </div>
+
+
+    </div>
+    <hr/>
+    <h3>Add comment:</h3>
+
+
+    <section class="row">
+      <form class="d-flex flex-column gap-2" action="{% url 'blogs:blog_detail_view' blog.id %}" method="POST">
+        {% csrf_token %}
+      <div class="col-7 mt-3"> 
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" placeholder="Your name ..." name="name">
+          <label for="floatingInput">name: </label>
+        </div>
+        <div class="form-floating">
+          <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="comment"></textarea>
+          <label for="floatingTextarea2">Comments</label>
+        </div>
+        <input value="Add comment" type="submit" class="btn btn-secondary mt-2">
+      </div>
+    </form>
+
+    </section>
+
+    <hr/>
+
+    <section class="row">
+      <h2>Comments:</h2>
+        <div class="col">
+          <div class="d-flex flex-column gap-2">
+            {% for comment in comments %}
+            <div class="d-flex flex-column gap-2 border border-1 p-3">
+              <h3 >{{ comment.name }}</h3>
+              <h6 class="text-muted">{{ comment.created_at }}</h6>
+              <p>{{ comment.comment }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+{% block title%} show blogs {%endblock%}
+
+
+{% block content %}
+
+<section class="container">
+    <div class="d-flex justify-content-between">  
+        <h1>All Blogs </h1>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                category
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'blogs:show_blogs_view' %}?filter=Political">Political</a></li>
+              <li><a class="dropdown-item" href="{% url 'blogs:show_blogs_view' %}?filter=Sports">Sports</a></li>
+              <li><a class="dropdown-item" href="{% url 'blogs:show_blogs_view' %}?filter=Social">Social</a></li>
+              <li><a class="dropdown-item" href="{% url 'blogs:show_blogs_view' %}?filter=Technical">Technical</a></li>
+            </ul>
+          </div>
+    </div>
+
+
+
+    <div class="row">
+
+        {% for blog in blogs %}
+            {% if blog.is_published  == True %}
+
+                <div class="col-10 m-2">
+                    <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                        <img src="{{blog.poster.url}}" />
+                        <a href="{% url 'blogs:blog_detail_view' blog.id %}"><h2>{{ blog.title }}</h2></a>
+                        <h3>{{ blog.category }}</h3>
+
+                        <h4>Published at : {{ blog.published_at }} </h4>
+                    </div>
+                </div>
+            {% endif %}
+
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
