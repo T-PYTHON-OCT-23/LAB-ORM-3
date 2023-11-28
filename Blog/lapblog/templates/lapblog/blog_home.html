@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All Blogs {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>All Blogs ({{lapblog_count}})</h1>
+
+    <div class="row">
+
+        {% for blog in lapblog %}
+
+            <div class="col-4">
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                    <img src="{{blog.poster.url}}" />
+                    <a href="{% url 'lapblog:blog_detail_view' blog.id %}"><h2>{{ blog.Title }}</h2></a>
+                    
+                    
+                    <h2>{{ blog.Title }}</h2>
+                    <!--<img width="100px" height="100px" src="{{blog.poster.url}}"/>-->
+                    <h4>  Contant :  {{blog.Contant }}</h4>
+                    <h4>is_published: {{ blog.is_published }} </h4>
+                    <h4>published_at: {{ blog.published_at }} </h4>
+                </div>
+            </div>
+            
+
+
+        {% endfor %}
+
+    </div>
+    <!-- Reviews Secgtion-->
+ <hr />
+ <section class="row">
+     <h2>Reviews:</h2>
+     {%for review in userReviews%}
+     <div class="col">
+       <div class="d-flex flex-column gap-2">
+         <div class="d-flex flex-column gap-2 border border-1 p-3">
+           <h3 >{{ review.full_name }}</h3>
+           <h6 class="text-muted">{{ review.created_at }}</h6>
+           <p>{{ review.comment }}</p>
+         </div>
+       </div>
+     </div>
+     {%endfor%}
+     
+   
+
+ </section>
+
+</section>
+    {% endblock %}

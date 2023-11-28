@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %} saerch page {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>All Blogs ({{lapblog_count}})</h1>
+
+    <div class="row">
+
+        {% for blog in blog %}
+
+        <div class="col">
+            <div class="blog-card d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                <img class="poster" src="{{blog.poster.url}}" />
+                <div class="p-3 d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-1">
+                        <span class="published_at ps-3 pe-3 bg-secondary rounded-pill text-white">{{blog.published_at}}</span>
+                        <span class="cat ps-3 pe-3 rounded-pill text-white {{blog.category}}">{{blog.category}}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+                        <h5 class="p-0 m-0">{{blog.Title}}</h5>
+                        <span class="material-symbols-outlined"></span>
+                    </div>
+                </div>
+                <div class="p-3 d-flex flex-column">
+                    <a class=" text-decoration-none" href="{% url 'lapblog:blog_detail_view'  blog.id %}"><h2>{{ blog.Title }}</h2></a>
+
+                </div>
+            </div>
+        </div>
+
+
+        {% endfor %}
+
+    </div>
+    {% endblock %}

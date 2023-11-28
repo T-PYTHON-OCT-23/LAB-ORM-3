@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}UPDATE PAGE {% endblock %}
+
+
+
+
+{% block content %}
+<div class="contaner mt-5">
+    <div class="row">
+        <h2>Update {{blog.Title}}:</h2>
+        <div class="col">
+            <form action="{% url 'lapblog:update_blog_view' blog.id %}" method="POST">
+                {% csrf_token %}
+                <label>Blog Title:</label>
+                <input class="form-control" type="text" name="Title" placeholder="Blog Title" />
+
+                <label>Blog Contant:</label>
+                <textarea class="form-control" name="Contant"></textarea>
+
+                
+
+                <label>Blog is_published:</label>
+                <input class="form-control" name="is_published" type="Boolean" />
+                <label>Blog  published_at:</label>
+                <input class="form-control" name="published_at" type="date" value="{{blog.published_at|date:'Y-m-d' }}" />
+                <label>Category:</label>
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if blog.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                <input class="btn btn-primary" type="submit" value="Create Blog" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+{% endblock %}

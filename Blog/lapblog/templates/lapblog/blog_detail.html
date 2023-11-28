@@ -1,0 +1,80 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{ blog.Title }} {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+
+            <div class="d-flex flex-column gap-2">
+                <h1>{{blog.Title }}</h1>
+                <h5>{{blog.Category}}</h5>
+                <div class="d-flex justify-content-between ">
+                    <h4>{{blog.Contant}}</h4>
+                
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Edit
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'lapblog:update_blog_view' blog.id %}">Update</a></li>
+                          <li><a class="dropdown-item" href="{% url 'lapblog:delete_blog_view' blog.id %}">Delete</a></li>
+                        </ul>
+                      </div>
+                </div>
+                <p>{{ blog.is_published }}</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</section>
+ <!-- Reviews Secgtion-->
+ <hr />
+
+ <section class="row">
+   <h2>Reviews:</h2>
+     <div class="col">
+       <div class="d-flex flex-column gap-2">
+         {% for review in reviews %}
+         <div class="d-flex flex-column gap-2 border border-1 p-3">
+           <h3 >{{ review.full_name }}</h3>
+           <h6 class="text-muted">{{ review.created_at }}</h6>
+           <p>{{ review.comment }}</p>
+         </div>
+         {% endfor %}
+       </div>
+     </div>
+     
+   
+
+ </section>
+
+ <section class="row mt-5">
+   <h2>Add Review Reviews:</h2>
+   <div class="col-6">
+
+     <form class="d-flex flex-column gap-2" action="{% url 'lapblog:blog_detail_view' blog.id  %}" method="POST">
+       {% csrf_token %}
+       <input type="text" class="form-control"  name="full_name" placeholder="Full Name"/>
+       
+       <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+
+       <input type="submit" value="Add Review" class="btn btn-primary" />
+     </form>
+
+
+   </div>
+ </section>
+
+
+
+</section>
+
+
+
+{% endblock %}
