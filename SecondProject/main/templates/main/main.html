@@ -1,0 +1,93 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Main {% endblock %}
+</title>
+
+{% block content %}
+    
+    <div class="container">
+<br>
+        <div class="row mt-4">
+            <div class="col-12 col-md-6 order-2 order-md-1">
+                    <div id="welcom" class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
+                        <h2>Welcome to Blog website</h2>
+                    </div>
+            </div>
+                <div class="col-12 col-md-6 order-2 order-md-1 ">
+                    <img src="\static\blog.jpg" alt="blog" />
+                </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="col " style=" font-size: large; color:darkblue" ><br>
+                <p>A blog (a truncation of "weblog")[1] is an informational website consisting of discrete, often informal diary-style text entries (posts). Posts are typically displayed in reverse chronological order so that the most recent post appears first, at the top of the web page. Until 2009, blogs were often the work of a single individual, occasionally of a small group, and often covered a single subject or topic. In the 2010s, "multi-author blogs" (MABs) emerged, featuring the writing of multiple authors and sometimes professionally edited. MABs from newspapers, other media outlets, universities, think tanks, advocacy groups, and similar institutions account for an increasing quantity of blog traffic. The rise of Twitter and other "microblogging" systems helps integrate MABs and single-author blogs into the news media. Blog can also be used as a verb, meaning to maintain or add content to a blog.</p>
+              
+                <h4><a href="{% url 'blog:read_blog_view' %}">Check out the blog</a> </h4>
+
+            </div>
+            
+
+        </div>
+
+  
+<br>
+<br>
+<hr>
+<!-- {% for reviews in latest_review %} -->
+        <!-- <div class="row"> -->
+           
+        <!-- <div class="border border-secondary gap-1">
+            <h4>{{reviews.name}}</h4>
+            <h4>{{reviews.review}}</h4>
+        </div>
+    
+        {%endfor%} --> 
+       
+        
+        <div class="row d-flex ">
+            <div class="col-md-10 col-xl-8 ">
+              <h3 class="fw-bold mb-4">Latest Reviews</h3> 
+            </div>
+        </div>
+        {% for reviews in latest_review %} 
+
+        <section style="color: #000; background-color: #f3f2f2;">
+            <div class="container py-5">
+
+
+              <div class= "row row-cols-2 text-center">
+                <div class="col-md-3 mb-4 mb-md-0">
+                  <div class="card">
+                    <div class="card-body py-4 mt-2">
+                        
+                      <div class="d-flex justify-content-center mb-4">
+                        <!-- <img src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" class="rounded-circle shadow-1-strong" width="100" height="100" > -->
+                      </div>
+                      <h5 class="font-weight-bold">{{reviews.name}}</h5>
+                      <h6 class="font-weight-bold my-3">{{reviews.rating}}</h6>
+                     
+                      <p class="mb-2">
+                        <i class="fas fa-quote-left pe-2"></i>{{reviews.review}}
+                      </p>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </section>
+        
+          <script>
+          var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+          var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+          })
+          </script>
+          
+          {%endfor%}
+    
+{%endblock%}

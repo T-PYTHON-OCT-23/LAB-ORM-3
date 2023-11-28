@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All Movies {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+  
+    <div class="d-flex justify-content-between">
+        <h1>All blog ({{ blog_count}})</h1>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Order By
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'blog:read_blog_view' %}">Rating</a></li>
+              <li><a class="dropdown-item" href="{% url 'blog:read_blog_view' %}?sort=oldest">Oldest</a></li>
+            </ul>
+          </div>
+        </div>
+    
+  
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
+
+        {% for post in blog %}
+
+            <div class="col">
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow h-100">
+                   <img src="{{post.poster.url}}" />
+                <a href="{% url 'blog:blog_detail_view'  post.id %}">
+                <h2>{{ post.title }}</h2></a>
+                <h2>{{ post.rating }}</h2></a>
+                <h5> Catogrey: {{post.category }}</h5>   
+                <h4> Content:  {{post.content}}</h4>
+                <h4>Release Date: {{ post.published_at }} </h4>
+                </div>
+            </div>
+        
+        {% endfor %}
+
+    </div>
+
+<hr >
+ 
+</section>
+{% endblock %}
