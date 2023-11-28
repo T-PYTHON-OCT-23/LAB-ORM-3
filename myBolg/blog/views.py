@@ -91,3 +91,13 @@ def searchBlog(request : HttpRequest):
 
    return render(request, "blog/search.html" ,  {"blogs" : blogs}) 
     
+def deleteRev(request : HttpRequest , Rid):
+     try:
+        rev = Review.objects.get(id = Rid)
+        blog_id = rev.blog.id
+        rev.delete()
+
+        return redirect("blog:detailsBlog", blog_id=blog_id)
+     except  Exception as e:
+
+       return render(request, "main/not_found.html")

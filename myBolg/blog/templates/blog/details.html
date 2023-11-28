@@ -47,6 +47,7 @@
             </div>
                
         </table>
+        
         <h1 class = "text-uppercase fw-bold fs-1 text-center">Reviews:</h1>
         <table class="table mb-3">
           <thead>
@@ -56,6 +57,8 @@
               <th scope="col">Comment</th>
               <th scope="col">Rating</th>
               <th scope="col"> Created At </th>
+              <th scope="col"> Delete </th>
+            
              
             </tr>
           </thead>
@@ -72,12 +75,13 @@
                   <td> {{ review.comment }}</td>
                   <td> {{ review.rating }}</td>
                   <td> {{ review.createdAt }}</td>
-                 
+                  <td> <a class="btn btn-dark " href="{% url 'blog:deleteRev' review.id %}">Delete</a></td>
                 </tr>
                 </tbody>
           </div>
           {% endfor %}    
       </table>
+      
   
         <div class="col-6">
            
