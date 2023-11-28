@@ -1,0 +1,57 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}published detail{% endblock %}
+
+{% block content %}
+
+<div class="container " >
+    <div class="row ">
+
+        <div class="col">
+            <div class="d-flex justify-content-center align-items-center">
+
+                <div class="blog-post">
+                    <img style="width: 100%;" src="{{published.image.url}}" alt="">
+                    <h2 class="blog-post-title">{{published.title}}</h2>
+    
+                    <p>{{published.content}}</p>
+              
+                  </div>
+            </div>
+
+            
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex flex-column justify-content-center align-items-center">
+
+            {% for reply in replies %}
+            
+            <div class="row form-control bg-light my-3 p-4 w-50">
+                <label>Name:</label>
+                <h2 class="form-control " >{{reply.name}}</h2>
+                <label>Added at:</label>
+                <h6>{{reply.commented_at}}</h6>
+                <label>Comment:</label>
+                <p class="form-control" >{{reply.comment}}</p>
+            </div>
+            {% endfor %}
+            <hr class="w-100" >
+            <div class="row w-50">
+                <form class="form-control bg-light p-4" action="{% url 'blog_op:published_detail' published.id %}" method="POST">
+                    {% csrf_token  %}
+                    <label>Name:</label>
+                    <input class="form-control" name="name" placeholder="Enter your name" type="text">
+                    <label>Comment:</label>
+                    <textarea class="form-control" placeholder="Comment..."  name="comment"></textarea>
+                    <button class="form-control btn btn-primary my-3 "  type="submit">Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

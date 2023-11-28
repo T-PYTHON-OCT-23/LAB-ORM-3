@@ -1,0 +1,44 @@
+
+
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}search{% endblock %}
+
+{% block content %}
+
+<div class="container" >
+    <div class="row">
+        <div class="col-10">
+            <h1> result of {{ request.GET.search }}</h1>
+            {% for p in search %}
+            <div class="blog-post d-flex justify-content-between">
+                <div>
+                  <h1 class="bg-dark-subtle" >{{p.blog_content}}</h1>
+                  <img style="width: 30%;" src="{{p.image.url}}" alt="">
+                <a href="{% url 'blog_op:published_detail' p.id %}"><h2 class="blog-post-title">{{p.title}}</h2></a>
+                <p class="blog-post-meta">posted on:{{p.published_at}}</p>
+                <p>{{p.content}}</p>
+                </div>
+                <div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Action
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'blog_op:update' p.id %}">update</a></li>
+                          <li><a class="dropdown-item" href="{% url 'blog_op:delete_blog' p.id %}">delete</a></li>
+                         
+                        </ul>
+                      </div>
+                </div>
+                
+              </div>
+              <hr class="border border-primary border-3 opacity-75">
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}Update Blog{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h1>update {{update.title}}</h1>
+
+    <form method="POST" action="{% url 'blog_op:update' update.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" value="{{update.title}}" name="title" >
+      </div>
+
+      <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control"name="content"  rows="3" >{{update.content}}</textarea>
+      </div>
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Add image</label>
+        <input class="form-control"  name="image" type="file" id="formFile">
+      </div>
+      {% for key , value in blog_content.choices %}
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="blog_content" value="{{value}}" id="{{key}}">
+        <label>
+          {{value}}
+        </label>
+      </div>
+    {% endfor %}
+      <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        <input type="date" class="form-control" value="{{update.published_at|date:'Y-m-d' }}"  name="published_at" >
+      </div>
+
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+  </div>
+
+{% endblock %}
