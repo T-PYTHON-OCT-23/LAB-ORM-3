@@ -1,0 +1,55 @@
+{% extends 'home/base.html' %}
+{% block title %}
+Add blogs
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="d-flex flex-column">
+                <form action="{% url 'blogs:add_blogs_views' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h1> Add Blogs </h1>
+
+                    <label> Title: </label>
+                    <input class="form-control" type="text" placeholder="Enter title here ..." name="title">
+
+                    <label> Publisher Name: </label>
+                    <input class="form-control" type="text" placeholder="Enter title here ..." name="name_publisher">
+
+                    <label> Location </label>
+                    <select name="published_location" class="form-control">
+                        <option value="Riyadh">Riyadh</option>
+                        <option value="Rafha">Rafha</option>
+                    </select>
+
+                    <label> Content: </label>
+                    <textarea name="content" class="form-control"></textarea>
+
+                    <label> Catagory:</label>
+                    {% for k,v in catagory %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="catagory" id="{{k}}" value="{{v}}">
+                        <label class="form-check-label" for="{{k}}">
+                            {{k}}
+                        </label>
+                    </div>
+                    {% endfor %}
+
+                    <label>Upload image:</label>
+                    <input type="file" name="images" accept="image/*" class="form-control">
+
+                    <label> Is published: </label>
+                    <select name="is_published" class="form-control">
+                        <option value="True">True</option>
+                        <option value="False">False</option>
+                    </select>
+                    <label>published at: </label>
+                    <input class="form-control" type="datetime-local" name="published_at">
+                    <input type="submit" class="btn btn-primary" value="craete blogs">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+All blogs
+{% endblock %}
+
+{% block search %}
+<form class="d-flex" role="search" action="{% url 'blogs:searchBar_blogs_viewa' %}" method="POST">
+    {% csrf_token %}
+  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+{% endblock %}
+
+{% block form %}
+<form action="{% url 'blogs:filter_blogs_views' %}" method="get" enctype="multipart/form-data">
+    {% csrf_token %}
+<select class="form-select" aria-label="Default select example" name="search">
+    <option value="True">Open</option>
+    <option value="False">Cloused</option>
+</select>
+<input type="submit" class="btn btn-primary form-control" value="craete blogs">
+</form>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-4 ">
+            <a href="{% url 'blogs:show_blogs_detils_view' blog.id %}" style="text-decoration: none; color: black;">
+            <div class="d-flex flex-column gap-2 border border-2 rounded-4 shadow p-1 mt-2">
+                <h1> Title: {{blog.title}}</h1>
+                <img src="{{blog.images.url}}" alt="movies">
+                <h3> Publisher name: {{ blog.name_publisher }}</h3>
+                <h3> Location: {{ blog.published_location }}</h3>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
