@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+    
+    <div class="container">
+
+        <div class="row mt-3">
+            <div class="col-12 col-md-6 order-2 order-md-1">
+                <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
+                    <h2>Create your blog</h2>
+                    <p>The blog is an online personal diary that is clinically updated for others to share. Featured comment blogs, so people who agree with the suggestions that are made can. Blogs encourage students to express their opinions clearly. Blogs are also necessary to meet the need to cover different ranges of aspects of social education. Therefore, the blog from the point of view of an effective teacher is effective in activating students and a way to share the knowledge that has been collected. </p>
+                </div>
+            </div>
+            <div class="col order-1 order-md-2 ">
+             <img class="w-70 rounded-5" src="{% static 'images/home6.png' %}" />
+            </div>
+        
+       
+        </div>
+        <hr/>
+
+        <div class="row">
+            <div class="col">
+                <h3 class="h3">Customer Opinions</h3>
+                
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+   
+            </div>
+        </div>
+
+    </div>
+    <br> 
+    <div class="container">
+    <div class="row g-3">
+        {% for r in review %}
+        <div  class="col-5 " >
+            <div class="d-flex flex-column gap-1 border border-1 p-3 comment" >    
+
+                <h3 >{{ r.full_name }}</h3>
+                <h6 class="text-muted">{{ r.created_at }}</h6>
+                <p>{{ r.comment }}</p>
+        
+            </div>
+
+        </div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

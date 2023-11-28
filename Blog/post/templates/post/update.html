@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Update {{ post.title }} {% endblock %}
+
+{% block content %}
+
+<div class="container mt-5"> 
+
+    <div class="row">
+    <h1>Update {{ post.title }}:</h1>
+       <div class="col">
+
+             <form action="{% url 'post:update_post_view' post.id%}" method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+
+                <label>Title Name:</label>
+                <input  class="form-control" type="text" name="title" placeholder="Title" value="{{post.title}}" />
+
+                <label>Post Content:</label>
+                <textarea  class="form-control" name="content">{{post.content}}"</textarea>
+
+                <label>Has it been published post?</label>
+                <select name="is_published" class="form-select">
+                    <option value="True"  {% if post.is_published == Yes %} selected {% endif %}>Yes</option>
+                    <option value="False" {% if post.is_published == No %} selected {% endif %}>No</option>
+                </select>
+
+                
+              <label>Category:</label>
+              {% for key, value in categories.choices %}
+                 <div class="form-check">
+                 <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if post.category == key %} checked {% endif %}>
+                 <label class="form-check-label" for="{{key}}">
+                 {{value}}
+                 </label>
+              </div>
+              {% endfor %} 
+
+              <label> Blog Poster:</label>
+              <input type="file" name="poster"  class="form-control" accept="image/*"/>
+              <h6>{{post.category}}</h6>
+
+             <label >Published Date:</label>
+             <input  class="form-control" name="published_at" type="date" value="{{post.published_at|date:'Y-m-d' }}"/>
+
+                <input class="btn btn-primary mt-4" type="submit" value="Update Post" />
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}

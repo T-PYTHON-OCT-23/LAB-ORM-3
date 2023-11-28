@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Display Posts Blog {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+    <div class="d-flex justify-content-between">
+    <h1>All Posts ({{posts_count}})</h1>
+
+    <div class="dropdown">
+        <button class="btn  btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Order By
+        </button> 
+         
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'post:display_blog_view' %}">Latest</a></li>
+          <li><a class="dropdown-item" href="{% url 'post:display_blog_view' %}?order=top">Oldest</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row ">
+
+        {% for post in posts %}
+
+            <div class="col">
+                <div class="d-flex flex-column gap-2 p-2 border border-1 rounded-4 shadow h-100">
+                    <div class="card-body gap-2 p-3 border border-3 rounded-4  shadow h-80  ">
+                        <img src="{{post.poster.url}}" height="200px" width="290px" />
+                        <div class="d-flex gap-1">
+                            <span class="releae ps-3 pe-3 bg-secondary  text-white">{{post.published_at.year}}</span>
+                        </div>
+                        <a href="{% url 'post:post_detail_view' post.id %}"> <h2 >{{ post.title }}</h2></a>
+                        <h6>{{post.category}}</h6>
+                        <h5>is_published :{{ post.is_published}}</h5>
+                        <h5 >Published on: {{ post.published_at }}</h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+ 
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+
+            <div class="d-flex flex-column gap-2">
+            <h1>{{ post.title }}</h1>
+            <img src="{{post.poster.url}}" class="rounded mx-auto d-block h-50 w-50" alt="Responsive image" />
+            <div class=" d-flex flex-column justify-content-between align-items-center">
+                <div class="d-flex gap-1">
+                    <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{post.published_at.year}}</span>
+                </div>
+             <div class="d-flex align-items-center gap-1 ">
+            <h4 class="p-2 m-2">{{ post.category }}</h4>
+        </div>
+      </div>
+            <div class="d-flex justify-content-end ">
+            <h5>{{ post.content}}</h5>
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Edit
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'post:update_post_view' post.id %}">Update</a></li>
+                    <li><a class="dropdown-item" href="{% url 'post:delete_post_view' post.id %}">Delete</a></li>
+                  </ul>
+                </div>
+            </div>
+            <p>{{ post.is_published }}</p>
+        </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <section class="row">
+      <h2>Reviews:</h2>
+        <div class="col-5 ">
+          <div class="d-flex flex-column gap-2">
+            {% for review in reviews %}
+            <div class="d-flex flex-column gap-1 border border-1 p-3 comment">
+              <h3 >{{ review.full_name }}</h3>
+              <h6 class="text-muted">{{ review.created_at }}</h6>
+              <p>{{ review.comment }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+    </section>
+
+    <section class="row mt-5">
+      <h2>Add Review Reviews:</h2>
+      <div class="col-6">
+
+        <form class="d-flex flex-column gap-2" action="{% url 'post:post_detail_view' post.id  %}" method="POST">
+          {% csrf_token %}
+          <input type="text" class="form-control"  name="full_name" placeholder="Full Name"/>
+          <select class="form-select" name="rating">
+            <option value="Very satisfied">Very satisfied</option>
+            <option value="Satisfied">Satisfied</option>
+            <option value="Dissatisfied">Dissatisfied</option>
+            <option value="Very bad">Very bad</option>
+          </select>
+         
+          <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+
+          <input type="submit" value="Add Review" class="btn btn-primary" />
+        </form>
+
+
+      </div>
+ 
+
+
+
+</section>
+</section>
+ 
+
+{% endblock %}

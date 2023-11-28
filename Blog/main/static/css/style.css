@@ -1,0 +1,46 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgba(192, 192, 192, 0.541);
+}
+
+
+.wrapper {
+    min-height: 70vh;
+}
+
+p {
+    white-space: pre-wrap;
+   
+}
+.poster {
+    height: 100px;
+    object-fit: cover;
+}
+
+.detail-poster {
+    max-height: 30vh;
+}
+
+.h3{
+    
+    justify-content:center
+}
+
+.checked {
+    color: orange;
+}
+
+ #review {
+    color: aqua;
+}
+
+.comment {
+    background-color: rgba(255, 255, 255, 0.644);
+    color: rgb(105, 98, 98)
+    
+}

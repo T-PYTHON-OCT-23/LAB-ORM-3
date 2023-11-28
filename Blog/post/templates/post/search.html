@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Display Posts Blog {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+    <div class="d-flex justify-content-between">
+    <h1> Searsh results for blog {{ request.GET.search }}` ({{ posts.count }}) </h1>
+    <div class="dropdown">
+        <button class="btn  btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Order By
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'post:display_blog_view' %}">Latest</a></li>
+          <li><a class="dropdown-item" href="{% url 'post:display_blog_view' %}?order=top">Oldest</a></li>
+        </ul>
+      </div>
+    </div>
+</div>
+    <div class="row g-4 row-cols-1 row-cols-md-3">
+
+        {% for post in posts %}
+
+            <div class="col">
+                <div class="d-flex flex-column gap-2 p-2 border border-1 rounded-4 shadow h-100 overflow-hidden ">
+                    <div class="card-body gap-2 p-3 border border-3 rounded-4  shadow h-80">
+                        <img class="poster" src="{{post.poster.url}}" />
+                        <div class="p-3 d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-1">
+                                <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{post.published_at.year}}</span>
+                                <span class="cat ps-3 pe-3 rounded-pill text-white {{posts.category}}">{{post.category}}</span>
+                            </div>
+                           
+                        </div>
+                        <div class="p-3 d-flex flex-column">
+                        <a  class=" text-decoration-none" href="{% url 'post:post_detail_view' post.id %}"> <h2 >{{ post.title }}</h2></a>
+                       
+                    </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
