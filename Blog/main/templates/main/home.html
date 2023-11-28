@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="container">
+
+    <div class="row mt-3">
+        <div class="col-12 col-md-6 order-2 order-md-1">
+            <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
+                <h2>Welcome to blog</h2>
+                <p>Choose from the list what you want</p>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-2">
+            <a  type="button" class="btn btn-primary btn-lg col" href="{% url 'blogs:add'%}">Add blog</a>
+            <br>
+            <br>
+            <a type="button" class="btn btn-primary btn-lg col" href="{% url 'blogs:read'%}">Read blog</a>
+        </div>
+
+    </div>
+
+    <div>
+        <h2>Comments:</h2>
+          <div class="col">
+            <div class="d-flex flex-column gap-2">
+              {% for review in reviews %}
+                <div class="d-flex flex-column gap-2">
+                  <h3 >{{ review.name }}</h3>
+                  <h6 >{{ review.date_add }}</h6>
+                  <h6>{{review.rating}}</h6>
+                  <p>{{ review.comment }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+      </div>
+
+    
+
+</div>
+{% endblock %}
