@@ -19,7 +19,8 @@ def blogs_home_view(request: HttpRequest):
     return render(request, "Blogs/blogs_home.html", {"blogs" : blogs})
 
 
-def blogs_details_view(request:HttpRequest, blog_id):
+def blogs_details_view(request:HttpRequest, blog_id ):
+
     blog_detail = Blog.objects.get(id=blog_id)
     if request.method == "POST":
         #create a new review

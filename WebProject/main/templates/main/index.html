@@ -61,11 +61,12 @@
       <div class="d-flex flex-column gap-2">
         {% for review in reviews %}
         <div class="d-flex flex-column card border-danger mb-3 p-3">
-          <h3 class="display-6"> Author name: {{ review.author_name }}</h3>
+          <h3> Author name: {{ review.author_name }}</h3>
           <h6 class="text-muted"> Title: {{ review.title }}</h6>
           <h6> Summary: {{review.summary }}</h6>
           <p>Rating: {{ review.rating }}</p>
           <h6>Published at: {{ review.published_at }}</h6>
+          <a href="{% url 'blogs:blogs_details_view' review.blog.id %}" class="link-danger link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h5> Blog:{{ review.blog.title }}</h5></a>
         </div>
         {% endfor %}
       </div>
