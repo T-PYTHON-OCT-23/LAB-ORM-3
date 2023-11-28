@@ -16,13 +16,13 @@
             <h4>category: {{blog.category}}</h4>
             <div class="row">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle col-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">Edit</button>
+                <button class="btn btn-light dropdown-toggle col-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">Edit</button>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'blogs:update' blog.id %}">Update</a></li>
                   <li><a class="dropdown-item" href="{% url 'blogs:delete' blog.id %}">Delete</a></li>
                 </ul>
               </div>
-              <a href="{% url 'blogs:read'%}"><button type="button" class="btn btn-primary col-3 mt-3"> all blogs</button></a>
+              <a href="{% url 'blogs:read'%}"><button type="button" class="btn btn-light col-3 mt-3"> all blogs</button></a>
             </div>
           </div>
             </div>
@@ -35,8 +35,8 @@
                 {% for review in reviews %}
                   <div class="d-flex flex-column gap-2">
                     <h3 >{{ review.name }}</h3>
-                    <h6 >{{ review.date_add }}</h6>
-                    <h6>{{review.rating}}</h6>
+                    <p>{{review.rating}}</p>
+                    <p >{{ review.date_add }}<p>
                     <p>{{ review.comment }}</p>
                   </div>
                 {% endfor %}
@@ -64,7 +64,7 @@
     
               <textarea class="form-control" name="comment" placeholder="Your Comment..."></textarea>
     
-              <input type="submit" value="Add Comment" class="btn btn-primary" />
+              <input type="submit" value="Add Comment" class="btn btn-light" />
             </form>
     
     
