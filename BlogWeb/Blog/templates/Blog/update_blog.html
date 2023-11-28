@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}Update blog{% endblock %}
+{% block content %}
+<section class="container row m-4 p-4">
+<h1 class="text-center">Update {{blog.title}}</h1>
+<div class="row col-8">
+    <div class="">
+        <form action="{% url 'Blog:update_blog' blog.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Title:</label>
+                <input class="form-control" type="text" name="title" placeholder="Title Name" value="{{blog.title}}" />
+            <label>Content:</label>
+            <textarea class="form-control" name="content">{{blog.content}}</textarea>
+            <label>Is published?</label>
+                <select name="is_published" class="form-select">
+                    <option value="True" {% if blog.is_published == True %} selected {% endif %}>True</option>
+                    <option value="False" {% if blog.is_published == False %} selected {% endif %}>False</option>
+                </select>
+                <label>Published at</label>
+                <input class="form-control" name="published_at" type="date" value="{{blog.published_at|date:'Y-m-d' }}"/>
+                <label>Category</label>
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" {% if blog.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">{{value}}</label>
+                    </div>
+                {% endfor %}
+                <img src="{{blog.image.url}}" height="200px" width="250"/>
+                <br>
+                <label>image:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+                <input class="btn btn-primary mt-4 mx-5" type="submit" value="Update blog" />
+
+        </form>
+    </div>
+</div>
+</section>
+{% endblock %}

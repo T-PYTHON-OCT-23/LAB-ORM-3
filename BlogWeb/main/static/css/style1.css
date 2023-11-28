@@ -1,0 +1,17 @@
+body{
+    background-image: url('/static/images/blog.jpg');
+    background-size: cover;
+    position: absolute;
+    z-index: -1;
+    overflow-x: hidden;
+}
+
+.home{
+    background-color: rgb(255, 255, 255,0.8);
+    border-radius: 30px;
+}
+.read{
+    background-color: gray;
+}
+
+
