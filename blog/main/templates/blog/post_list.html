@@ -1,0 +1,118 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Blog Posts{% endblock %}
+
+{% block header %}Blog Posts{% endblock %}
+{% block search %}
+    <div class="dropdown pr-4 me-3">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Category
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'main:post_list' %}" name="category">All</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:post_list' %}?category=General" name="category">General</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:post_list' %}?category=Caltural" name="category">Caltural</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:post_list' %}?category=Horror" name="category">Horror</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:post_list' %}?category=Fantasy" name="category">Fantasy</a></li>
+            <li><a class="dropdown-item" href="{% url 'main:post_list' %}?category=Comedy" name="category">Comedy</a></li>
+        </ul>
+    </div>
+    <form class="d-flex" role="search" method="get" action="{% url 'main:post_list' %}">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+{% endblock %}
+
+{% block content %}
+<!-- 
+{% for post in posts %}
+<div class="container d-inline">
+    <div class="row mt-3">
+        <div class="col-2 col-md-6 order-2 order-md-1">
+           <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
+                <div class="row  g-4 row-cols-1 row-cols-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}"/>
+                        <div class="card-body">
+                            <h5 class="card-title"><a href="{% url 'main:post_detail' pk=post.pk %}">{{ post.title }}</a></h5>
+                            <p class="card-text">{{post.content}}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Published on: {{ post.published_at }}</li>
+                        <li class="list-group-item">Category: {{ post.category }}</li>
+                        <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  {% endfor %} -->
+    <div class="container-sm">
+        <div class="row ">
+            {% for post in posts %}
+            <div class="col-4 mx-auto me-auto">
+                <div class="card width me-auto">
+                    <div class="card-body">
+                        {% if post.is_published %}
+                        <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}"/>
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">Published on: {{ post.published_at }}</p>
+                        <p class="card-text">{{ post.content }}</p>
+                        <p class="card-text">Category: {{ post.category }}</p>
+
+                        {% else %}
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">Post is not Published</p>
+                        {% endif %}
+                        <a href="{% url 'main:post_detail' pk=post.pk %}" class="btn btn-primary">Show</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <section class="row mt-3">
+        <h2>Latest Comments:</h2>
+        <div class="col">
+            <div class="d-flex flex-column gap-2">
+             {% for c in comments %}
+                <div class="d-flex flex-column gap-2 border border-1 p-3">
+                    <h6 class="text-muted">Blog Name: {{ c.post.title }}</h6>
+                    <h6 class="text-muted">Created At: {{ c.created_at }}</h6>
+                    <p>Comment: {{ c.text }}</p>
+                </div>
+             {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- {% for post in posts %}
+        <article>
+            <h2><a href="{% url 'main:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            {% if post.is_published %}
+                <p>Published on: {{ post.published_at }}</p>
+                <p>{{ post.content }}</p>
+
+                <p>Category: {{ post.category }}</p>
+               
+                <div style="width: 100%;">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}" width="200rem"/>
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>Post is not Published</p>
+            {% endif %}
+        </article>
+    {% endfor %} -->
+
+{% endblock %}

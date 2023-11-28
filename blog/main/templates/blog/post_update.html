@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Post Update{% endblock %}
+
+{% block content %}
+  <h2>Edit Post</h2>
+
+  <!-- Dropdown Menu for Edit/Delete -->
+  <form method="post" enctype="multipart/form-data" class="post-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <label for="action">Choose an action:</label>
+    <select name="action" id="action">
+      <option value="edit">Edit Post</option>
+      <option value="delete">Delete Post</option>
+    </select>
+
+    <button type="submit">Update Post</button>
+  </form>
+
+  <a href="{% url 'main:post_detail' pk=post.pk %}">Cancel</a>
+{% endblock %}

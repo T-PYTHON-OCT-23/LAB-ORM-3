@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block header %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <article>
+       {% if post.is_published %}
+        <p>Published on: {{ post.published_at }}</p>
+        <p>{{ post.content }}</p>
+        <p>Category : {{ post.category }}</p>
+
+        <p><img src="{{ post.image.url }}" alt="{{ post.title }}" width="500rem"/></p>
+
+        {% else %}
+        <p>Post is not Published</p>
+        {% endif %}
+
+        <a href="{% url 'main:post_update' pk=post.pk %}">Edit Post</a>
+
+
+       <section class="row mt-3">
+            <h2>Latest Comments:</h2>
+            <div class="col">
+                <div class="d-flex flex-column gap-2">
+                 {% for c in comments %}
+                    <div class="d-flex flex-column gap-2 border border-1 p-3">
+                        <h6 class="text-muted">Created At: {{ c.created_at }}</h6>
+                        <p>Comment: {{ c.text }}</p>
+                    </div>
+                 {% endfor %}
+                </div>
+            </div>
+            <form class="d-flex flex-column gap-2" action="{% url 'main:add_comment' pk=post.pk  %}" method="POST">
+                {% csrf_token %}
+                <textarea class="form-control" name="text" placeholder="Your Comment"></textarea>
+                <input type="submit" value="Add Comment" class="btn btn-primary" />
+              </form>
+        </section>
+    </article>
+{% endblock %}
