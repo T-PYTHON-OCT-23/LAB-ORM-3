@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+
+{% block title %}{{info.title}} {% endblock %}
+
+{% block content %}
+<h1>Details About The Contant</h1>
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+        <div class="d-flex flex-column gap-2">
+        <h1>{{ info.title }}</h1>
+        <p>{{ info.contant }}</p>
+        <p>{{info.category}}</p>
+        <div class="d-flex justify-content-between ">
+        <p>{{info.published_at}}</p>
+        
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Edit
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'info:update_info_view' info.id %}">Update</a></li>
+          <li><a class="dropdown-item" href="{% url 'info:delete_info_view' info.id %}">Delete</a></li>
+        </ul>
+      </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    <hr />
+
+    <section class="row">
+      <h2>Reviews:</h2>
+        <div class="col">
+          <div class="d-flex flex-column gap-2">
+            {% for comment in comment2 %}
+            <div class="d-flex flex-column gap-2 border border-1 p-3">
+              <h3 >{{ comment.name }}</h3>
+              <h6 class="text-muted">{{ comment.created_at }}</h6>
+              <p>{{ comment.Comment }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </section>
+    <section class="row mt-5">
+      <h2>Add Comment:</h2>
+      <div class="col-6">
+
+        <form class="d-flex flex-column gap-2" action="{% url 'info:info_details_view' info.id  %}" method="POST">
+          {% csrf_token %}
+          <input type="text" class="form-control"  name="name" placeholder="Your Name"/>
+          <select class="form-select" name="like_it">
+            <option value="True">I like it</option>
+            <option value="False">I don,t like it</option>
+            
+          </select>
+
+          <textarea class="form-control" name="comment" placeholder="Your Comment"></textarea>
+
+          <input type="submit" value="Add Review" class="btn btn-primary" />
+        </form>
+
+
+      </div>
+    </section>
+    
+
+
+</section>
+{%endblock%}

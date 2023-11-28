@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add New Content {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Add new content</h1>
+
+    <div class="row">
+
+        <div class="col-6">
+           
+
+            <form action="{% url 'info:add_info_view' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Content Title:</label>
+                <input class="form-control" type="text" name="title" placeholder="Title contant" />
+
+                <label>The Content:</label>
+                <textarea class="form-control" name="contant"></textarea>
+
+                <label>Do you want published :</label>
+                <select name="is_published" class="form-select">
+                    <option value="True">Yse</option>
+                    <option value="False">No</option>
+                </select>
+
+                <label>Content Release Date:</label>
+                <input class="form-control" name="published_at" type="date" />
+                <label>Contant Poster:</label>
+                <input type="file" name="poster"  class="form-control" accept="image/*"/>
+                <label>Category</label>
+
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                
+                <input class="btn btn-primary" type="submit" value="Create Contant" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

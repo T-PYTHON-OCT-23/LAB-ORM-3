@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{info.title}} {% endblock %}
+
+{% block content %}
+
+<section class="container">
+     
+    <h1>All Contants</h1>
+    
+
+    <div class="row">
+
+        {% for i in info %}
+
+            <div class="col-4">
+                
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                     <img src="{{i.poster.url}}"/>
+                    <a href="{% url 'info:info_details_view' i.id %}"> <h2>{{ i.title }} </h2></a>
+
+                    <h4> Contant:  {{i.contant}}</h4>
+                    <h4>Release Date: {{ i.published_at }} </h4>
+                    <h4>Category:{{i.category}}</h4>
+                
+                </div>
+            
+            </div>
+            
+
+
+        {% endfor %}
+
+    </div>
+
+</section>
+<hr/>
+<section class="row">
+    <h2>Latest Comments:</h2>
+      <div class="col">
+        <div class="d-flex flex-column gap-2">
+          {% for comment1 in comment %}
+          <div class="d-flex flex-column gap-2 border border-1 p-3">
+
+            <h3 >{{ comment1.name }}</h3>
+            <h6 class="text-muted">Blog Name: {{ comment1.info.title }}</h6>
+            <h6 class="text-muted">Created At: {{ comment1.created_at }}</h6>
+            <p>Comment: {{ comment1.Comment }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+</section>
+
+{% endblock %}
