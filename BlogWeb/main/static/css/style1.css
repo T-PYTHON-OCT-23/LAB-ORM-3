@@ -1,7 +1,6 @@
 body{
     background-image: url('/static/images/blog.jpg');
     background-size: cover;
-    position: absolute;
     z-index: -1;
     overflow-x: hidden;
 }
