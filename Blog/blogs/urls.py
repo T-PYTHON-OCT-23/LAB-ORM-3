@@ -13,4 +13,7 @@ urlpatterns = [
     path("update/<blog_id>/", views.blog_update_view, name="blog_update_view"),
     path("delete/<blog_id>/", views.blog_delete_view, name="blog_delete_view"),
     path("category/<at>/", views.blogs_home_view_cat, name="blogs_home_view_cat"),
+    path("home/", views.home_view, name="home_view"),
+    path("blog/", views.blog_view, name="blog_view"),
+
 ]

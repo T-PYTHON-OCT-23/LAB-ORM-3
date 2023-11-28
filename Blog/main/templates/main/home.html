@@ -8,13 +8,13 @@
     <h2>last comment:</h2>
       <div class="col">
         <div class="d-flex flex-column gap-2">
-          {% for Review in Reviews %}
+          {% for review in reviews %}
           <div class="d-flex flex-column gap-2 border border-1 p-3">
-            <h2 > Title blog : '{{ Review.blog.title }}'</h2>
+            <h2 > Title blog : '{{ review.blog.title }}'</h2>
 
-            <h3 > comment by : '{{ Review.full_name }}'</h3>
-            <h6 class="text-muted">{{ Review.created_at }}</h6>
-            <p>{{ Review.comment }}</p>
+            <h3 > comment by : '{{ review.full_name }}'</h3>
+            <h6 class="text-muted">{{ review.created_at }}</h6>
+            <p>{{ review.comment }}</p>
           </div>
           {% endfor %}
         </div>
