@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block contant %}
+
+<div class="container-add">
+    <h1> Add New Post , let's go</h1>
+    <br>
+    <div class="row">
+        <div class="col-8">
+            <form action="{% url 'blog:add_blog_views' %}"method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Title blog: </label>
+                <input  class="form-control" type="text" name="title" placeholder="Enter bolg title ">
+            <br>
+            <label>Content: </label>
+            <textarea name="content"></textarea>
+            <br>
+            <br>
+            <label>is published </label>
+            <select name="is_published"  class="form-control">
+                <option value="True"> yes</option>
+                <option value="False"> no</option>
+            </select>
+           <br> 
+           <label>Category</label>
+           {% for key , value in categories.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                    <label class="form-check-label" for="{{key}}">
+                       {{value}}
+                    </label>
+                </div>
+            {% endfor %}
+
+            <label>Plog Poster:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+                
+          
+
+            <button  class="form-control" type="submit">submit </button>
+
+
+            </form>
+
+        </div>
+    </div>
+</div>
+   
+   
+{%endblock%}

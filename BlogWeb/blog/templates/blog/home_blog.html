@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+
+{% block contant %}
+
+<div class="container-home-add">
+
+    <h1>ALL POST</h1>
+
+    <div class="row">
+
+        {% for blog in blogs %}
+
+            <div class="col-5">
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow mb-4 text-bg-secondary p-3">
+
+                    <a href="{% url 'blog:details_blog_views' blog.id %}"><h3>{{ blog.title }}</h3></a> 
+                    <img width="500px" height="200px"  src="{{blog.image.url}}" />
+                    <h4>{{blog.content}}</h4>
+                    <h4> is published :{{ blog.is_published }} </h4>
+                    <h4>  "{{blog.category}}"</h4>
+                    <h4>published at {{blog.published_at}}</h4>
+                   
+                    
+                    
+
+                </div>
+            </div>
+            
+
+
+        {% endfor %}
+
+    </div>
+
+    <section>
+        <div clss="row ">
+            <h2>Reviews</h2>
+            <div class="col-5">
+                {% for review in order_review %}
+                <div>
+                    <h3 id="name">{{review.name}}</h3>
+                    <h3>{{review.rating}} <span class="material-symbols-outlined">
+                        grade
+                        </span></h>
+                    <p>{{review.comment}}</p>
+                    <h7>{{review.created_at}}</h7>
+                </div>
+                {% endfor %}
+    
+            </div>
+        </div>
+    </section>
+    
+
+
+
+</div>
+
+
+{%endblock%}
