@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction:column;
     width: 100%;
     text-align: center;
   }
@@ -19,11 +19,13 @@
     padding: 0;
     box-sizing: border-box;
     font-family: arial;
-}
-.star-rating form {
+  }
+
+  .star-rating form {
     display: none;
-}
-.star-rating .thanks-msg {
+  }
+
+  .star-rating .thanks-msg {
     display: none;
     font-size: 20px;
     margin: 40px auto;
@@ -32,61 +34,75 @@
     padding: 8px 20px;
     border-left: 3px solid #4caf50;
     border-radius: 20px;
-}
-.star-rating input {
+  }
+
+  .star-rating input {
     display: none;
-}
-.star-rating {
-    margin: 50px auto;
-    display: table;
+  }
+
+  .star-rating {
+    margin: 3px;
+    /* display: table; */
     width: 350px;
-}
-.star-rating label {
+  }
+
+  .star-rating label {
     padding: 10px;
     float: right;
     font-size: 25px;
     color: #eee;
-}
-.star-rating input:not(:checked) ~ label:hover,
-.star-rating input:not(:checked) ~ label:hover ~ label {
+  }
+
+  .star-rating input:not(:checked)~label:hover,
+  .star-rating input:not(:checked)~label:hover~label {
     color: #ffc107;
-}
-.star-rating input:checked ~ label {
+  }
+
+  .star-rating input:checked~label {
     color: #ffc107;
-}
-.star-rating form .rating-reaction:before {
+  }
+
+  .star-rating form .rating-reaction:before {
     width: 100%;
     float: left;
     color: #ffc107;
-}
-.star-rating #rating-1:checked ~ form .rating-reaction:before {
+  }
+
+  .star-rating #rating-1:checked~form .rating-reaction:before {
     content: "I hate it";
-}
-.star-rating #rating-2:checked ~ form .rating-reaction:before {
+  }
+
+  .star-rating #rating-2:checked~form .rating-reaction:before {
     content: "I don't like it";
-}
-.star-rating #rating-3:checked ~ form .rating-reaction:before {
+  }
+
+  .star-rating #rating-3:checked~form .rating-reaction:before {
     content: "It is good";
-}
-.star-rating #rating-4:checked ~ form .rating-reaction:before {
+  }
+
+  .star-rating #rating-4:checked~form .rating-reaction:before {
     content: "I like it";
-}
-.star-rating #rating-5:checked ~ form .rating-reaction:before {
+  }
+
+  .star-rating #rating-5:checked~form .rating-reaction:before {
     content: "I love it";
-}
-.star-rating input:checked ~ form {
+  }
+
+  .star-rating input:checked~form {
     border-top: 1px solid #ddd;
     width: 100%;
     padding-top: 15px;
     margin-top: 15px;
     display: inline-block;
-}
-.star-rating form .rating-reaction {
+  }
+
+  .star-rating form .rating-reaction {
     font-size: 24px;
     float: left;
     text-transform: capitalize;
-}
-.star-rating form .submit-rating {
+  }
+
+  .star-rating form .submit-rating {
     border: none;
     outline: none;
     background: #795548;
@@ -96,10 +112,11 @@
     padding: 5px 15px;
     cursor: pointer;
     float: right;
-}
-form .submit-rating:hover {
+  }
+
+  form .submit-rating:hover {
     background-color: #333;
-}
+  }
 </style>
 
 <section class="container pt-4">
@@ -146,13 +163,9 @@ form .submit-rating:hover {
         {% endfor %}
       </div>
     </div>
-
-
-
   </section>
 
-  
-  <section class="row mt-5">
+  <!-- <section class="row mt-5">
     <h2>Add Review Reviews:</h2>
     <div class="col-6">
 
@@ -174,42 +187,42 @@ form .submit-rating:hover {
 
 
     </div>
-  </section>
+  </section> -->
 
-  <!-- <section class="row mt-5">
+  <section class="row mt-5">
     <h2>Add Review Reviews:</h2>
-    <div class="col-6">
-  
+    <div class="col-5">
+
       <form class="d-flex flex-column gap-2" action="{% url 'posts:post_detail_view' posts.id  %}" method="POST">
         {% csrf_token %}
         <input type="text" class="form-control" name="full_name" placeholder="Full Name" />
+
         <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+
         <div class="star-rating">
           <div class="thanks-msg">Thanks for your feedback !!!</div>
           <div class="star-input">
-            <input type="radio" name="rating" id="rating-5" value="1">
+            <input type="radio" name="rating" id="rating-5" value="5">
             <label for="rating-5" class="fas fa-star"></label>
-            <input type="radio" name="rating" id="rating-4" value="2">
+            <input type="radio" name="rating" id="rating-4" value="4">
             <label for="rating-4" class="fas fa-star"></label>
             <input type="radio" name="rating" id="rating-3" value="3">
             <label for="rating-3" class="fas fa-star"></label>
-            <input type="radio" name="rating" id="rating-2" value="4">
+            <input type="radio" name="rating" id="rating-2" value="2">
             <label for="rating-2" class="fas fa-star"></label>
-            <input type="radio" name="rating" id="rating-1" value="5">
+            <input type="radio" name="rating" id="rating-1" value="1">
             <label for="rating-1" class="fas fa-star"></label>
-        
-           
           </div>
-          
+
         </div>
         <span class="rating-reaction"></span>
-        <input type="submit" value="Add Review" class="btn btn-primary submit-rating" ></input>
+        <input type="submit" value="Add Review" class="btn btn-primary"></input>
       </form>
-  
-  
+
+
     </div>
-  </section> -->
-    
+  </section>
+
 
 
 
