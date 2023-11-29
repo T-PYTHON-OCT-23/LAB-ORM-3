@@ -54,11 +54,11 @@
     </div>
 </div>
   {% endfor %} -->
-    <div class="container-sm">
-        <div class="row ">
+    <div class="container">
+        <div class="row g-4">
             {% for post in posts %}
             <div class="col-4 mx-auto me-auto">
-                <div class="card width me-auto">
+                <div class="card width me-auto h-100">
                     <div class="card-body">
                         {% if post.is_published %}
                         <img class="card-img-top" src="{{ post.image.url }}" alt="{{ post.title }}"/>
