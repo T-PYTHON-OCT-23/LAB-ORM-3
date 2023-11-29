@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All Blogs {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+
+    <h1>All Blogs</h1>
+
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
+
+        {% for post in posts %}
+
+        <div class="col">
+            <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow h-100">
+                <img height="200px" src="{{post.poster.url}}" />
+                <a href="{% url 'posts:post_detail_view' post.id %}"><h2>{{post.title }} {{post.id}}</h2></a>
+                <h5>is published :{{post.is_publishd}}</h5>
+                <h5>Date at :{{post.publishd_at}}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+   
+</section>
+
+{% endblock %}

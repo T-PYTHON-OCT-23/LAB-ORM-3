@@ -1,0 +1,120 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&family=Vina+Sans&display=swap');
+
+    :root {
+        --color-dark: #151C35;
+        --color-secodary-dark: #464C70;
+        --color-primary: #EE709D;
+        --color-text: #8297E2;
+        --color-light: #EBEBFB;
+    }
+
+    .containerr {
+        height: 68vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Dosis', sans-serif;
+    }
+
+    .board {
+        max-width: 987px;
+        width: 100%;
+        background-color: var(--color-dark);
+        text-align: center;
+        border-radius: 8px;
+        padding: 4em 0;
+
+    }
+
+    .text-light {
+        color: var(--color-light)
+    }
+
+    .swiper {
+        width: 600px;
+        height: auto;
+    }
+
+    .swiper .swiper-slide .flex {
+        margin: 3em 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .swiper .swiper-slide .comments {
+        background-color: var(--color-light);
+        padding: 1.5rem 2em;
+        width: 50%;
+        border-radius: 5px;
+        font-size: .9em;
+        position: relative;
+        color: #151C35;
+    }
+
+    .swiper .swiper-slide .comments::after {
+        content: '';
+        position: absolute;
+        bottom: -19px;
+        left: 45%;
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-top: 20px solid var(--color-light);
+        z-index: -99;
+    }
+
+    .swiper .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1em;
+    }
+</style>
+<div class="containerr">
+    <h2>Welcome to Blogs page</h2>
+    <div class="board">
+        <h2>Reviews</h2>
+
+        <div class="swiper">
+
+            <div class="swiper-wrapper">
+
+                <!-- Slides -->
+                {% for review in reviews %}
+                <div class="swiper-slide">
+                    <div class="flex">
+                        <div class="comments">
+                            <p>{{ review.comment }}</p>
+                            <h6> rating:{{ review.rating}}</h6>
+                        </div>
+                        <div class="profile">
+                            <h3>{{ review.full_name }}</h3>
+                            <h6>{{ review.created_at }}</h6>
+
+                        </div>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

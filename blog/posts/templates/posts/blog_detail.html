@@ -1,0 +1,220 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+<style>
+  #rev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: arial;
+}
+.star-rating form {
+    display: none;
+}
+.star-rating .thanks-msg {
+    display: none;
+    font-size: 20px;
+    margin: 40px auto;
+    color: #4caf50;
+    background-color: rgba(76, 175, 80, 0.1411764705882353);
+    padding: 8px 20px;
+    border-left: 3px solid #4caf50;
+    border-radius: 20px;
+}
+.star-rating input {
+    display: none;
+}
+.star-rating {
+    margin: 50px auto;
+    display: table;
+    width: 350px;
+}
+.star-rating label {
+    padding: 10px;
+    float: right;
+    font-size: 25px;
+    color: #eee;
+}
+.star-rating input:not(:checked) ~ label:hover,
+.star-rating input:not(:checked) ~ label:hover ~ label {
+    color: #ffc107;
+}
+.star-rating input:checked ~ label {
+    color: #ffc107;
+}
+.star-rating form .rating-reaction:before {
+    width: 100%;
+    float: left;
+    color: #ffc107;
+}
+.star-rating #rating-1:checked ~ form .rating-reaction:before {
+    content: "I hate it";
+}
+.star-rating #rating-2:checked ~ form .rating-reaction:before {
+    content: "I don't like it";
+}
+.star-rating #rating-3:checked ~ form .rating-reaction:before {
+    content: "It is good";
+}
+.star-rating #rating-4:checked ~ form .rating-reaction:before {
+    content: "I like it";
+}
+.star-rating #rating-5:checked ~ form .rating-reaction:before {
+    content: "I love it";
+}
+.star-rating input:checked ~ form {
+    border-top: 1px solid #ddd;
+    width: 100%;
+    padding-top: 15px;
+    margin-top: 15px;
+    display: inline-block;
+}
+.star-rating form .rating-reaction {
+    font-size: 24px;
+    float: left;
+    text-transform: capitalize;
+}
+.star-rating form .submit-rating {
+    border: none;
+    outline: none;
+    background: #795548;
+    color: #ffc107;
+    font-size: 18px;
+    border-radius: 4px;
+    padding: 5px 15px;
+    cursor: pointer;
+    float: right;
+}
+form .submit-rating:hover {
+    background-color: #333;
+}
+</style>
+
+<section class="container pt-4">
+  <div class="row">
+    <div class="col">
+
+      <div class="d-flex flex-column gap-2">
+        <h1>{{ posts.title }}</h1>
+        <h5>{{ posts.category}}</h5>
+
+        <div class="d-flex justify-content-between ">
+          <h4>{{posts.publishd_at}}</h4>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Edit
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'posts:update_post_view' posts.id %}">Update</a></li>
+              <li><a class="dropdown-item" href="{% url 'posts:delete_post_view' posts.id %}">Delete</a></li>
+            </ul>
+          </div>
+        </div>
+        <p>{{ posts.content }}</p>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <section class="row" id="rev">
+    <div class="col-3">
+      <h2>Reviews:</h2>
+
+      <div class="d-flex flex-column gap-2">
+        {% for review in reviews %}
+        <div class="d-flex flex-column gap-2 border border-1 p-3">
+          <h3>{{ review.full_name }}</h3>
+          <h6> rating:{{ review.rating}}</h6>
+          <p>{{ review.comment }}</p>
+          <h6 class="text-muted">{{ review.created_at }}</h6>
+
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+
+
+  </section>
+
+  
+  <section class="row mt-5">
+    <h2>Add Review Reviews:</h2>
+    <div class="col-6">
+
+      <form class="d-flex flex-column gap-2" action="{% url 'posts:post_detail_view' posts.id  %}" method="POST">
+        {% csrf_token %}
+        <input type="text" class="form-control" name="full_name" placeholder="Full Name" />
+        <select class="form-select" name="rating">
+          <option value="1">1 Star</option>
+          <option value="2">2 Star</option>
+          <option value="3">3 Star</option>
+          <option value="4">4 Star</option>
+          <option value="5">5 Star</option>
+        </select>
+
+        <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+
+        <input type="submit" value="Add Review" class="btn btn-primary" />
+      </form>
+
+
+    </div>
+  </section>
+
+  <!-- <section class="row mt-5">
+    <h2>Add Review Reviews:</h2>
+    <div class="col-6">
+  
+      <form class="d-flex flex-column gap-2" action="{% url 'posts:post_detail_view' posts.id  %}" method="POST">
+        {% csrf_token %}
+        <input type="text" class="form-control" name="full_name" placeholder="Full Name" />
+        <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+        <div class="star-rating">
+          <div class="thanks-msg">Thanks for your feedback !!!</div>
+          <div class="star-input">
+            <input type="radio" name="rating" id="rating-5" value="1">
+            <label for="rating-5" class="fas fa-star"></label>
+            <input type="radio" name="rating" id="rating-4" value="2">
+            <label for="rating-4" class="fas fa-star"></label>
+            <input type="radio" name="rating" id="rating-3" value="3">
+            <label for="rating-3" class="fas fa-star"></label>
+            <input type="radio" name="rating" id="rating-2" value="4">
+            <label for="rating-2" class="fas fa-star"></label>
+            <input type="radio" name="rating" id="rating-1" value="5">
+            <label for="rating-1" class="fas fa-star"></label>
+        
+           
+          </div>
+          
+        </div>
+        <span class="rating-reaction"></span>
+        <input type="submit" value="Add Review" class="btn btn-primary submit-rating" ></input>
+      </form>
+  
+  
+    </div>
+  </section> -->
+    
+
+
+
+
+</section>
+
+
+{% endblock %}

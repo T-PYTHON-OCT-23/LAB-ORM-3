@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Update {{ posts.title }}{% endblock %}
+
+
+{% block content %}
+    <div class="container mt-5"> 
+
+        <div class="row">
+            <h2>Update {{posts.title}}:</h2>
+            <div class="col">
+
+                <form action="{% url 'posts:update_post_view' posts.id %}" method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                <label>blog Title:</label>
+                <input class="form-control" type="text" name="title" placeholder="blog Title" value="{{posts.title}}" />
+
+                <label>Blog Content:</label>
+                <textarea class="form-control" name="content">{{posts.content}}</textarea>
+
+                <label>Category:</label>
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if posts.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <label>Blog Poster:</label>
+                <input type="file" name="poster"  class="form-control" accept="image/*"/>
+
+                <label>Blog DateTime:</label>
+                <input class="form-control" name="publishd_at" type="date" value="{{posts.publishd_at|date:'Y-m-d' }}" />
+
+                <input class="btn btn-primary mt-2" type="submit" value="Update post" />
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
