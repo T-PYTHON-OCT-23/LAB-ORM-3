@@ -6,6 +6,10 @@ from datetime import date
 
 def home (request:HttpRequest):
    date_now = date.today()
-   latest_comment=Comment.objects.filter(commented_at__contains=date_now).order_by('-commented_at')[0:5]
+   #latest_comment=Comment.objects.filter(commented_at__contains=date_now).order_by('-commented_at')[0:5]
+   latest_comment = Comment.objects.all().order_by('-commented_at')[0:5]
    return render(request,'main/home.html',{'comments':latest_comment})
 
+def access_permission(request:HttpRequest):
+
+   return render(request,'main/access_per.html')

@@ -4,9 +4,10 @@ from .models import Published,Comment
 # Create your views here.
 
 def add_blog(request:HttpRequest):
-    
+    if not request.user.is_staff:
+        return redirect('main:access_permission')   
     if request.method == 'POST':
-        
+
         try:
             new_published = Published(title=request.POST['title'],content =request.POST['content'],is_published=request.POST['is_published'],published_at=request.POST['published_at'],image = request.FILES["image"],blog_content=request.POST["blog_content"])
             
@@ -32,15 +33,17 @@ def publications(request:HttpRequest):
 
 
 def published_detail(request:HttpRequest,published_id):
-    
+    msg=None
     pub = Published.objects.get(id=published_id)
-
     if request.method == 'POST':
-        new_comment = Comment(published=pub,name=request.POST['name'],comment=request.POST['comment'])
-        new_comment.save()
+        if not request.user.is_authenticated:
+            msg= 'To comment you have to sign in'
+        else:
+            new_comment = Comment(published=pub,name=request.POST['name'],comment=request.POST['comment'])
+            new_comment.save()
     
     replies=Comment.objects.filter(published=pub) 
-    return render(request,'blog_op/detail.html',{'published':pub,"replies":replies})
+    return render(request,'blog_op/detail.html',{'published':pub,"replies":replies,'msg':msg})
 
 def update(request:HttpRequest,published_id):
     published = Published.objects.get(id=published_id)

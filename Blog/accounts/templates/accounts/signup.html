@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}Sign Up{% endblock %}
+
+
+{% block content %}
+<div class="container" >
+    
+    <div class="row text-center d-flex justify-content-center gap-3">
+            <h2>Sign Up</h2>
+        <div class="col-6 border border-5">
+            <form class="d-flex flex-column gap-3 p-3" action="{% url 'accounts:signup' %}" method="POST">
+                {% csrf_token %}
+                <input class="form-control"  type="text" name="first_name" required minlength="1" placeholder="First Name"/>
+                <input class="form-control" type="text" name="last_name" required minlength="1" placeholder="Last Name"/>
+                <input class="form-control" type="text" name="username" required minlength="3" placeholder="user name"/>
+                <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
+
+                <input class="btn btn-primary" type="submit" value="Sing Up" />
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

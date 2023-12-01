@@ -49,6 +49,13 @@
                     <textarea class="form-control" placeholder="Comment..."  name="comment"></textarea>
                     <button class="form-control btn btn-primary my-3 "  type="submit">Comment</button>
                 </form>
+                <div>
+                    {% if msg %}
+                    <div class="alert alert-danger" role="alert">
+                        <p>{{ msg }} to sign in click <a href="{% url 'accounts:signin' %}">here</a> </p>
+                      </div>
+                    {%endif%}
+                </div>
             </div>
         </div>
     </div>

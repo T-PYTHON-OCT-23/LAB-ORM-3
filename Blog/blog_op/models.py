@@ -11,6 +11,9 @@ class Published(models.Model):
     published_at = models.DateField()
     blog_content =models.CharField(max_length=56,choices = blogs_content.choices, default="Story")
     image = models.ImageField(upload_to="images/",default="images/default.jpg")
+
+    def __str__(self) -> str:
+        return self.title
     
 
 class Comment(models.Model):
@@ -18,3 +21,6 @@ class Comment(models.Model):
     name =models.CharField(max_length=255)
     comment =models.TextField()
     commented_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.name
