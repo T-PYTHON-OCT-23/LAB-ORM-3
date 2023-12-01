@@ -1,43 +1,35 @@
 {% extends 'main/base.html' %}
-{% load static %}
-{% block title%} home {%endblock%}
+{% block title%} show blogs {%endblock%}
+
 
 {% block content %}
-<div class="container">
-<section class="row gap-2 border border-2 p-3">
-    <h2>last comment:</h2>
-      <div class="col">
-        <div class="d-flex flex-column gap-2">
-          {% for review in reviews %}
-          <div class="d-flex flex-column gap-2 border border-1 p-3">
-            <h2 > Title blog : '{{ review.blog.title }}'</h2>
 
-            <h3 > comment by : '{{ review.full_name }}'</h3>
-            <h6 class="text-muted">{{ review.created_at }}</h6>
-            <p>{{ review.comment }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
+<section class="container">
+
+    <h1>All Blogs </h1>
+
+    <div class="row">
+
+        {% for blog in blogs %}
+            {% if blog.is_published  == True %}
+
+                <div class="col-10 m-2">
+                    <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                        <img src="{{blog.poster.url}}" />
+                        <a class="text-decoration-none text-black" href="{% url 'blogs:blogs_home_view_cat' blog.category %}">{{blog.category}}</a></span>
+                        <a href="{% url 'blogs:blog_detail_view' blog.id %}"><h2>{{ blog.title }}</h2></a>
+                    </div>
+                    <div class="d-flex gap-1">
+                    </div>
+
+                </div>
+            {% endif %}
 
 
-</section>
-<hr class="mt-5"/>
-<section class="row mt-5 gap-2 border border-2 p-3">
-    <h2>last Blogs:</h2>
-      <div class="col">
-        <div class="d-flex flex-column gap-2">
-          {% for blog in blogs %}
-          <div class="d-flex flex-column gap-2 border border-1 p-3">
-            <h3 > Title Blog : '{{ blog.title }}'</h3>
-            <h6 class="text-muted"> published at :{{ blog.published_at }}</h6>
-            <p>{{ blog.content }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
+        {% endfor %}
+
     </div>
+
 </section>
-</div>
 
 {% endblock %}

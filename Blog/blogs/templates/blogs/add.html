@@ -6,6 +6,13 @@
 <section class="container"> 
     <h1> add new blog </h1>
     <div class="row">
+
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+        
         <div class="col-6">
             <form actio="{% url 'blogs:add_blogs_view' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

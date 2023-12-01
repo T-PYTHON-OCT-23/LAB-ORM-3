@@ -6,6 +6,11 @@ from .models import Blog, Review
 
 
 def add_blogs_view(request:HttpRequest):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
+
+    #Creating a new entry into the database for a movie
+    msg = None
     try:
         if request.method == "POST":
             new_blogs = Blog(title=request.POST["title"], content=request.POST["content"], is_published = request.POST["is_published"], published_at = request.POST["published_at"], category=request.POST["category"],poster=request.FILES['poster'])
@@ -14,8 +19,13 @@ def add_blogs_view(request:HttpRequest):
 
         
         return render(request,"blogs/add.html", {"categories" : Blog.categories})
-    except Exception as e:
+    except KeyError as e:
         return redirect("blogs:not_found_view")
+    except Exception as e:
+        msg = f"An error occured, please fill in all fields and try again . {e}"
+    return render(request,"blogs/add.html", {"categories" : Blog.categories,  "msg" : msg})
+
+
         
 
 
