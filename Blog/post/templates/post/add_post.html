@@ -10,6 +10,13 @@
     
     <div class="row">
 
+        
+        {% if message %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endif %}
+
         <div class="col-6">
 
             <form action="{% url 'post:add_blog_view' %}" method="POST" enctype="multipart/form-data">

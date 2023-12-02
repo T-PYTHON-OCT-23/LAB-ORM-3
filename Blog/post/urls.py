@@ -11,5 +11,6 @@ urlpatterns = [
     path("update/<post_id>/", views.update_post_view, name="update_post_view"),
     path("delete/<post_id>", views.delete_post_view, name="delete_post_view"),
     path("search/", views.search_post_view, name="search_post_view"),
-    path("category/<cat>/", views.display_blog_view_cat, name="display_blog_view_cat")
+    path("category/<cat>/", views.display_blog_view_cat, name="display_blog_view_cat"),
+    path("review/add/<movie_id>/", views.add_review, name="add_review")
 ]

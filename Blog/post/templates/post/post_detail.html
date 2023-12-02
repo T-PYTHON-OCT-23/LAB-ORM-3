@@ -19,17 +19,19 @@
             <h4 class="p-2 m-2">{{ post.category }}</h4>
         </div>
       </div>
+      {% if request.user.is_staff %}
+      <div class="dropdown">
+          <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Edit
+          </button>
+          <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'post:update_post_view' post.id %}">Update</a></li>
+              <li><a class="dropdown-item" href="{% url 'post:delete_post_view' post.id %}">Delete</a></li>
+            </ul>
+          </div>
+          {% endif %}
             <div class="d-flex justify-content-end ">
             <h5>{{ post.content}}</h5>
-            <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Edit
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'post:update_post_view' post.id %}">Update</a></li>
-                    <li><a class="dropdown-item" href="{% url 'post:delete_post_view' post.id %}">Delete</a></li>
-                  </ul>
-                </div>
             </div>
             <p>{{ post.is_published }}</p>
         </div>
@@ -52,15 +54,38 @@
           </div>
         </div>
 
+        <br>
+        <hr>
     </section>
+    <div class="stara-a ">
+    <form class=" stara " d-flex flex-column gap-3 justify-content-center align-items-center">
+      <div class="rating">
+        <h3>Give us a rating</h3>
+        <input type='radio' hidden name='rate' id='rating-opt5' data-idx='0'>	
+        <label for='rating-opt5'><span>Very satisfied</span></label>
+    
+        <input type='radio' hidden name='rate' id='rating-opt4' data-idx='1'>
+        <label for='rating-opt4'><span>Somewhat satisfied</span></label>
+    
+        <input type='radio' hidden name='rate' id='rating-opt3' data-idx='2'>
+        <label for='rating-opt3'><span>Neutral</span></label>
+    
+        <input type='radio' hidden name='rate' id='rating-opt2' data-idx='3'>
+        <label for='rating-opt2'><span>Dissatisfied</span></label>
+    
+        <input type='radio' hidden name='rate' id='rating-opt1' data-idx='4'>
+        <label for='rating-opt1'><span>Very Dissatisfied</span></label>
+      </div>
+    </form>
 
     <section class="row mt-5">
+      {% if request.user.is_authenticated %}
       <h2>Add Review Reviews:</h2>
       <div class="col-6">
 
         <form class="d-flex flex-column gap-2" action="{% url 'post:post_detail_view' post.id  %}" method="POST">
           {% csrf_token %}
-          <input type="text" class="form-control"  name="full_name" placeholder="Full Name"/>
+          <input type="text" class="form-control"  name="full_name" placeholder="Full Name" required minlength="5"/>
           <select class="form-select" name="rating">
             <option value="Very satisfied">Very satisfied</option>
             <option value="Satisfied">Satisfied</option>
@@ -69,18 +94,39 @@
           </select>
          
           <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
-
+          
           <input type="submit" value="Add Review" class="btn btn-primary" />
         </form>
-
-
       </div>
+    </div>
+    {%  else %}
+
+    <p class="p-3 border border-1 ">
+      To post a review please <a href="{% url 'accounts:login_user' %}">sign in</a>.
+    </p>
  
-
-
-
 </section>
-</section>
- 
+{% endif %}
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Post</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       do you want to delete the post {{ post.title }}  ? click yes if yes
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <a href="{% url 'post:delete_post_view' post.id %}" class="btn btn-danger">Yes, delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 {% endblock %}

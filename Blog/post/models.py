@@ -15,9 +15,17 @@ class Blog(models.Model):
 
 
 
+    def __str__(self):
+        return f"{self.title}"
+
 class Review(models.Model):
     post =  models.ForeignKey(Blog, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=700)
     rating = models.TextField()
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+    
+    def __str__(self):
+        return f"{self.full_name} : {self.comment}"

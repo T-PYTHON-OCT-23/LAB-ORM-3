@@ -13,11 +13,11 @@
                 </div>
             </div>
             <div class="col order-1 order-md-2 ">
-             <img class="w-70 rounded-5" src="{% static 'images/home6.png' %}" />
+               <img class="w-70 rounded-5" src="{% static 'images/home6.png' %}" />
             </div>
-        
-       
         </div>
+ 
+        
         <hr/>
 
         <div class="row">
@@ -34,6 +34,36 @@
         </div>
 
     </div>
+
+    <div class="row row-cols-1 row-cols-md-4 mt-3">
+
+        {% for post in posts %}
+        <div class="col">
+            <div class="movie-card d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                <img class="poster" src="{{post.poster.url}}" />
+                <div class="p-3 d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-1">
+                        <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{post.release_date.year}}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+                        <h5 class="p-0 m-0">{{post.rating}}</h5>
+                        <span class="material-symbols-outlined">star</span>
+                    </div>
+                </div>
+                <div class="p-3 d-flex flex-column">
+                    <a class=" text-decoration-none" href="{% url 'post:post_detail_view'  post.id %}"><h2>{{ post.title }}</h2></a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+
+
     <br> 
     <div class="container">
     <div class="row g-3">
@@ -42,6 +72,7 @@
             <div class="d-flex flex-column gap-1 border border-1 p-3 comment" >    
 
                 <h3 >{{ r.full_name }}</h3>
+                <h4>{{ r.post.title}}</h4>
                 <h6 class="text-muted">{{ r.created_at }}</h6>
                 <p>{{ r.comment }}</p>
         

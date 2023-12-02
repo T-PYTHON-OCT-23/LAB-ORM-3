@@ -6,9 +6,16 @@ from django.utils import timezone
 
 
 def add_blog_view(request: HttpRequest):
+     
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
+    message = None
     if request.method == "POST":
         new_blog = Blog(title=request.POST["title"], content=request.POST["content"], is_published=request.POST["is_published"], published_at=timezone.now(),category=request.POST["category"],poster=request.FILES["poster"])
         
+    if request.method == "POST":
+
+      
         new_blog.save()
 
         return redirect("post:display_blog_view")
@@ -69,6 +76,9 @@ def not_exist_view(request:HttpRequest):
 
 def update_post_view(request: HttpRequest, post_id):
 
+    if not request.user.is_staff:
+        return render(request, "post/not_authorized.html", status=401)
+
     post = Blog.objects.get(id=post_id)
 
     if request.method == "POST":
@@ -87,6 +97,9 @@ def update_post_view(request: HttpRequest, post_id):
 
  
 def delete_post_view(request: HttpRequest, post_id):
+
+    if not request.user.is_superuser:
+        return render(request, "post/not_authorized.html", status=401)
 
     post = Blog.objects.get(id=post_id)
     post.delete()
@@ -114,3 +127,16 @@ def display_blog_view_cat(request: HttpRequest, cat):
     posts_count = posts.count()
 
     return render(request, "post/display_blog.html", {"posts" : posts, "posts_count" : posts_count})
+
+
+def add_review(request: HttpRequest,post_id):
+
+    if request.method == "POST":
+
+        if not request.user.is_authenticated:
+            return render(request, "post/not_authorized.html", status=401)
+
+        post_obj = Blog.objects.get(id=post_id)
+        new_review = Review(post=post_obj,  full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])  
+        new_review.save()
+        return redirect("post:post_detail_view", post_id=post_obj.id) 
