@@ -40,6 +40,7 @@
 
   <section class="row mt-5">
     <h2>Add Review Reviews:</h2>
+    {% if request.user.is_authenticated %}
     <div class="col-6">
 
       <form class="d-flex flex-column gap-2" action="{% url 'blogs:blog_detail_view' blog.id  %}" method="POST">
@@ -58,6 +59,13 @@
         <input type="submit" value="Add Review" class="btn btn-primary" />
       </form>
     </div>
+    {%  else %}
+
+    <p class="p-3 border border-1 ">
+      To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+    </p>
+
+    {% endif %}
   </section>
 
   <section class="row">
