@@ -4,33 +4,37 @@
 
 {% block content %}
 
-<section class="container row m-4 p-4">
-        <div class="row ">
+<section class="container  row m-4 p-4">
+        <div class="row">
             <div class="col">
-            <div class="d-flex flex-column gap-2">
+            <div class=" gap-2 align-items-center justify-content-center">
             <h2>Title: {{ blog.title }}</h2>
-            <img src="{{blog.poster.url}}" width="90%" height="300" style="display: cover;" />
+            <img src="{{blog.poster.url}}" width="600px" height="500" style="display: cover;" />
             <h4>Content: <br>{{ blog.content }}</h4>
             <h4>is published: {{ blog.is_published }}</h4>
             <h4>published at: {{ blog.published_at }}</h4>
             <h4>category: {{blog.category}}</h4>
             <div class="row">
-            <div class="dropdown">
-                <button class="btn btn-light dropdown-toggle col-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">Edit</button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'blogs:update' blog.id %}">Update</a></li>
-                  <li><a class="dropdown-item" href="{% url 'blogs:delete' blog.id %}">Delete</a></li>
-                </ul>
+              {% if request.user.is_staff %}
+              <div class="dropdown">
+                  <button class="btn btn-light dropdown-toggle col-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">Edit</button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'blogs:update' blog.id %}">Update</a></li>
+                    {% if request.user.is_superuser %}
+                    <li><a  class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
+                    {% endif %}
+                  </ul>
               </div>
+              {% endif %}
               <a href="{% url 'blogs:read'%}"><button type="button" class="btn btn-light col-3 mt-3"> all blogs</button></a>
             </div>
           </div>
-            </div>
+          </div>
         </div>
 
         <div>
           <h2>Comments:</h2>
-            <div class="col">
+            <div class="col border border-1 color-black">
               <div class="d-flex flex-column gap-2">
                 {% for review in reviews %}
                   <div class="d-flex flex-column gap-2">
@@ -47,33 +51,56 @@
 <br>
 <br>
 <br>
-        <section class="row mt-20">
-          <h2>Add Comment:</h2>
-          <div class="col-6">
+        <section class="row mt-20 ">
+          {% if request.user.is_authenticated %}
+            <h2>Add Comment:</h2>
+            <div class="col-6 ">
     
-            <form class="d-flex flex-column gap-2" action="{% url 'blogs:detail' blog.id  %}" method="POST">
-              {% csrf_token %}
-              <input type="text" class="form-control"  name="name" placeholder="Name..."/>
-              <select class="form-select" name="rating" placeholder="Rating...">
-                <option value="⭐️">⭐️</option>
-                <option value="⭐️⭐️">⭐️⭐️</option>
-                <option value="⭐️⭐️⭐️">⭐️⭐️⭐️</option>
-                <option value="⭐️⭐️⭐️⭐️">⭐️⭐️⭐️⭐️</option>
-                <option value="⭐️⭐️⭐️⭐️⭐️">⭐️⭐️⭐️⭐️⭐️</option>
-              </select>
-    
-              <textarea class="form-control" name="comment" placeholder="Your Comment..."></textarea>
-    
-              <input type="submit" value="Add Comment" class="btn btn-light" />
-            </form>
-    
-    
+              <form class="d-flex flex-column gap-2" action="{% url 'blogs:detail' blog.id  %}" method="POST">
+                {% csrf_token %}
+                <input type="text" class="form-control"  name="name" placeholder="Name..."/>
+                <select class="form-select" name="rating" placeholder="Rating...">
+                  <option value="⭐️">⭐️</option>
+                  <option value="⭐️⭐️">⭐️⭐️</option>
+                  <option value="⭐️⭐️⭐️">⭐️⭐️⭐️</option>
+                  <option value="⭐️⭐️⭐️⭐️">⭐️⭐️⭐️⭐️</option>
+                  <option value="⭐️⭐️⭐️⭐️⭐️">⭐️⭐️⭐️⭐️⭐️</option>
+                </select>
+      
+                <textarea class="form-control" name="comment" placeholder="Your Comment..."></textarea>
+      
+                <input type="submit" value="Add Comment" class="btn btn-light" />
+              </form>
+              {%  else %}
+
+              <p class="p-3 border border-1 ">
+                To post a review please <a href="{% url 'accounts:login' %}">sign in</a>.
+              </p>
+      
+      
           </div>
+          {% endif %}
         </section>
-
-
 </section>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete⚠️</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        are you surc you want to delete the {{ blog.titel }}? 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{% url 'blogs:delete' blog.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-{% endblock %}
+
+{% endblock %} 

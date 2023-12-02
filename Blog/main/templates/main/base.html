@@ -24,12 +24,27 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item">
+                {% if request.user.is_staff %}
+                 <li class="nav-item">
                   <a class="btn btn-light" href="{% url 'blogs:add' %}" >add blog</a>
-                </li>
+                 </li>
+                {% endif %}
                 <li class="nav-item">
                   <a class="btn btn-light" href="{% url 'blogs:read'%}" >read blog</a>
                 </li>
+              {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link m-0">welcome:{{ request.user.username }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:logout' %}" >Log out</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:login' %}" >Sign in</a>
+                </li>
+              {% endif %}
+            </ul>
   
               
   

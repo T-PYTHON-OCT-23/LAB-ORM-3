@@ -38,9 +38,9 @@
 
             <div class="mt-4 col-4">
 
-                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                <div class="d-flex flex-column gap-2 p-3 border border-1  shadow">
                     <img src="{{blog.poster.url}}" width="100%" height="300" />
-                    <a href="{% url 'blogs:detail'  blog.id %}"><h4>Title: {{blog.title}}</h4></a>
+                    <a href="{% url 'blogs:detail'  blog.id %}"><h4>{{blog.title}}</h4></a>
                     <h5>is published: {{blog.is_published}} </h5>
                     <h5>published at: {{blog.published_at}}</h5>
                 </div>
