@@ -6,7 +6,9 @@
 
 <section class="container-2 m-3 p-5">
     <h1 class="display-1 text-center">All Blogs</h1>
+    {% if request.user.is_staff %}
     <h3 class="display-6 p-4 ">Join us on a journey of discovery and personal growth <a class="btn btn-outline-success" href="{% url 'blogs:add_blog_view' %}">Add new blog</a></h3>
+    {% endif %}
         <div class="row">
             {% for blog in blogs %}
             <div class="col-3">
@@ -17,6 +19,7 @@
                             <h6>is published:{{blog.is_published}}</h6>
                             <h6>published at : {{ blog.published_at }} </h6>
                             <p class="card-text">Category: {{ blog.category}}</p>
+                            {% if request.user.is_authenticated %}
                                 <div class="btn-group">
                                     <button type="button" class="btn  btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     Edit blog
@@ -26,8 +29,7 @@
                                         <li><a class="dropdown-item" href="{% url 'blogs:delete_blog_view' blog.id %}">Delete blog</a></li>
                                     </ul>
                                 </div>
-
-
+                            {% endif %}
                         </div>
                     </div>
             </div>

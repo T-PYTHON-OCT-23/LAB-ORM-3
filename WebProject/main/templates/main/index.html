@@ -5,12 +5,17 @@
     <div class="container">
         <div class="row">
             <div class="col-6 text-center mt-5">
+              <div>
+                {% if request.user.is_authenticated %}
+                <h1 class="text-center display-4">Welcome,{{ request.user.username }}</h1>
+                {% endif %}
+              </div>
                 <h2 class="display-1">Blogs Website<span class="material-symbols-outlined">favorite</span></h2>
                 <h3>Inspire your mind, engage your senses, and transform your understanding.</h3>
                 <p class="d-flex justify-content-center align-items-center">A blog, short for weblog, is a frequently updated web page used for personal commentary or business content. Blogs are often interactive and include sections at the bottom of individual blog posts where readers can leave comments.</p>
             </div>
             <div class="col-6">
-                <img class="h-200 w-100" src="{% static 'images/office_12.jpg' %}" />
+                <img class="h-200 w-100" src="{% static 'images/office_12.jpg' %}"/>
             </div>
         </div>
 
@@ -51,7 +56,6 @@
    </div>
 
 </div>
-
 <hr/>
 
 

@@ -3,13 +3,17 @@ from django.http import HttpRequest, HttpResponse
 from .models import Blog, Review
 
 def add_blog_view(request: HttpRequest):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
+
+    msg = None
     if request.method == "POST":
         new_blog = Blog(title=request.POST["title"], content=request.POST["content"], is_published=request.POST["is_published"], published_at=request.POST["published_at"],category=request.POST["category"],image=request.FILES["image"])
         new_blog.save()
 
         return redirect("blogs:blogs_home_view")
 
-    return render(request, "blogs/add.html", {"categories" : Blog.categories})
+    return render(request, "blogs/add.html", {"categories" : Blog.categories, "msg": msg})
 
 
 
@@ -23,7 +27,6 @@ def blogs_details_view(request:HttpRequest, blog_id ):
 
     blog_detail = Blog.objects.get(id=blog_id)
     if request.method == "POST":
-        #create a new review
         new_review = Review(blog=blog_detail, author_name=request.POST["author_name"], title=request.POST["title"], summary=request.POST["summary"], rating=request.POST["rating"])  
         new_review.save()
 
@@ -84,3 +87,16 @@ def blogs_home_view_cat(request:HttpRequest, cate):
     return render(request, "blogs/blogs_home.html", {"blogs" : blogs, "blogs_count" : blogs_count})
 
 
+
+
+def add_review_view(request: HttpRequest, blog_id):
+
+    if request.method == "POST":
+
+        if not request.user.is_authenticated:
+            return render(request, "main/not_authorized.html", status=401)
+
+        blog_obj = Blog.objects.get(id=blog_id_id)
+        new_review = Review(blog=blog_obj,  full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])  
+        new_review.save()
+        return redirect("blogs:blog_detail_view", movie_id=movie_obj.id)
