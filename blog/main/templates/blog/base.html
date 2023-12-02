@@ -25,10 +25,24 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'main:post_list' %}">Home</a>
                 </li>
+              {% if request.user.is_staff %}
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page"  href="{% url 'main:post_create' %}">Create Post</a>
               </li>
+              {% endif %}
+
               </ul>
+              <div class="nav-item gap-2 d-flex justify-content-lg-between mx-auto me-auto">
+              {% if user.is_authenticated %}
+                <span class="navbar-text">
+                 <p> Hi, {{ user.username }}</p>
+                </span>
+                <a class="nav-link active" aria-current="page" href="{% url 'main:user_logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-link active" aria-current="page" href="{% url 'main:user_login' %}">Login</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'main:user_signup' %}">Signup</a>
+              {% endif %}
+            </div>
               {% block search %}{% endblock %}
 
             </div>

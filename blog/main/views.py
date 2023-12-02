@@ -3,9 +3,13 @@ from django.utils import timezone
 from .models import Post, Comment
 from .forms import PostForm
 from django.urls import reverse
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import CustomUserCreationForm
+
 
 def post_list(request):
-    # try:
+    try:
         if "search" in request.GET:
             posts = Post.objects.filter(title__contains=request.GET["search"])
         elif "category" in request.GET:
@@ -16,8 +20,8 @@ def post_list(request):
         comments = Comment.objects.all().order_by("-created_at")[0:5]
 
         return render(request, 'blog/post_list.html', {'posts': posts, "comments":comments})
-    # except Exception as e:
-    #     return render(request, 'blog/error.html')
+    except Exception as e:
+        return render(request, 'blog/error.html')
 
 def post_detail(request, pk):
     # try:
@@ -78,3 +82,33 @@ def add_comment(request, pk):
         comment=Comment(post=post_,text=request.POST["text"])
         comment.save()
     return  redirect(reverse('main:post_detail', kwargs={'pk': pk}))
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('main:post_list')  # Redirect to your desired page
+    else:
+        form = AuthenticationForm()
+    return render(request, 'blog/login.html', {'form': form})
+
+def user_signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+
+            form.save()
+            return redirect('main:user_login')  # Redirect to your desired page after signup
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'blog/signup.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('main:post_list')  # Redirect to your desired page after logout

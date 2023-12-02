@@ -17,8 +17,9 @@
         {% else %}
         <p>Post is not Published</p>
         {% endif %}
-
+        {% if request.user.is_staff %}
         <a href="{% url 'main:post_update' pk=post.pk %}">Edit Post</a>
+        {% endif %}
 
 
        <section class="row mt-3">
@@ -33,11 +34,15 @@
                  {% endfor %}
                 </div>
             </div>
+            {% if request.user.is_authenticated %}
+
             <form class="d-flex flex-column gap-2" action="{% url 'main:add_comment' pk=post.pk  %}" method="POST">
                 {% csrf_token %}
                 <textarea class="form-control" name="text" placeholder="Your Comment"></textarea>
                 <input type="submit" value="Add Comment" class="btn btn-primary" />
               </form>
+            {% endif %}
+
         </section>
     </article>
 {% endblock %}
