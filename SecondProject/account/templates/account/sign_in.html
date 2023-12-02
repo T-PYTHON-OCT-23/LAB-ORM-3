@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Sign in{% endblock %}
+</title>
+
+{% block content %}
+<div class="container">
+    
+            <div class="row pt-5"> 
+                {% if msg %}
+                <div class="alert alert-danger" role="alert">
+                    {{ msg }}
+                  </div>
+                {% endif %}
+                <div class ="col bg-light"> <br>
+                        <h3>Sign In</h3>
+                    
+                        <form  action="{% url 'account:sign_in_view' %}"  method="post" style="width: 26rem; padding: 40px;">
+                                    {% csrf_token %}
+
+                                <!-- UserName input -->
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                <label class="form-label" for="form4Example1">Username</label>
+                                <input class="form-control" type="text" name="username" required minlength="3"/>
+                                </div>
+
+                                <!-- Password input -->
+                                <div data-mdb-input-init class="form-outline mb-4">
+                                <label class="form-label" for="form4Example3">Password</label>
+                                <input class="form-control" type="password" name="password" required minlength="8" />
+                                </div>
+                            
+                                <input type="submit" class="btn btn-primary" value="Sign in">
+
+                            <p>Don't have account <a href="{%url 'account:sign_up_view' %}">Sign up</a></p>
+                            
+                        </form>
+            </div>
+            
+        </div>
+</div>
+
+{% endblock%}

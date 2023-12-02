@@ -100,6 +100,6 @@ def blog_category_view (request: HttpRequest):
 
     blog_count = blog.count()
 
-    return render(request, "blog/blog_home.html", {"blog" : blog, " blog_count" :  blog_count})
+    return render(request, "blog/blog_home.html", {"blog" : blog , " blog_count" :  blog_count })
 
 

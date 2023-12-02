@@ -36,58 +36,38 @@
 <br>
 <br>
 <hr>
-<!-- {% for reviews in latest_review %} -->
-        <!-- <div class="row"> -->
-           
-        <!-- <div class="border border-secondary gap-1">
-            <h4>{{reviews.name}}</h4>
-            <h4>{{reviews.review}}</h4>
-        </div>
-    
-        {%endfor%} --> 
-       
-        
-        <div class="row d-flex ">
-            <div class="col-md-10 col-xl-8 ">
-              <h3 class="fw-bold mb-4">Latest Reviews</h3> 
-            </div>
-        </div>
-        {% for reviews in latest_review %} 
 
-        <section style="color: #000; background-color: #f3f2f2;">
-            <div class="container py-5">
+  <section class="justify-content-center text-center">
+      <div class="col-md-10 col-xl-8 ">
+        <h3 class="">Testimonials</h3>
+      </div>
+ 
+    <div class="row row-cols-1 row-cols-md-5">
 
-
-              <div class= "row row-cols-2 text-center">
-                <div class="col-md-3 mb-4 mb-md-0">
-                  <div class="card">
-                    <div class="card-body py-4 mt-2">
-                        
-                      <div class="d-flex justify-content-center mb-4">
-                        <!-- <img src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" class="rounded-circle shadow-1-strong" width="100" height="100" > -->
-                      </div>
-                      <h5 class="font-weight-bold">{{reviews.name}}</h5>
-                      <h6 class="font-weight-bold my-3">{{reviews.rating}}</h6>
-                     
-                      <p class="mb-2">
-                        <i class="fas fa-quote-left pe-2"></i>{{reviews.review}}
-                      </p>
-
-                    </div>
+      {% for reviews in latest_review %} 
+       <div class="col d-flex">
+        <div class="card">              
+          <div class="card testimonial-card" style="height: 100; width: 100;" >
+               
+                  <div class="avatar mx-auto bg-white">
+                      <img src="https://cdn-icons-png.flaticon.com/256/2815/2815428.png" class="rounded-circle img-fluid shadow-1-strong" />
                   </div>
-                </div>
-              </div>
-            </div>
+                  <div class="card-body align-items-center">
+                      <h4 class="mb-4">{{reviews.name}}</h4>
+                      <hr />
+                      <a href="#" style="text-decoration:none"><h6 class="mb-4">{{reviews.blog.title}}</h6></a>
+                        <p class="dark-grey-text mt-4"> <i class="fas fa-quote-left pe-2"></i>{{reviews.review}} </p>
+                  </div>
+          </div>
+        </div>
+       </div>
+
+       {%endfor%}
+    </div>
+   
+  </section>
+    </div>
+
             
-          </section>
-        
-          <script>
-          var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-          var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl)
-          })
-          </script>
-          
-          {%endfor%}
-    
+     
 {%endblock%}

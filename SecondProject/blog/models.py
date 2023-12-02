@@ -21,4 +21,5 @@ class Review(models.Model):
     review= models.TextField()
     rating = models.IntegerField()
 
-
+def __str__(self):
+    return f"(self.title)"

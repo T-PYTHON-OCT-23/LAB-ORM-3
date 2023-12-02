@@ -9,3 +9,17 @@ def home_view(request: HttpRequest):
 
      return render(request, "main/main.html" , {"latest_review": latest_review})
 
+
+def contact_view(request:HttpRequest):
+          
+     return render(request, "main/contact.html" )
+
+
+def about_view(request:HttpRequest):
+          
+     return render(request, "main/about.html" )
+
+
+
+
+

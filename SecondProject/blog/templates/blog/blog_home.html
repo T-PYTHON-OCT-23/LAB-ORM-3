@@ -8,7 +8,7 @@
 
   
     <div class="d-flex justify-content-between">
-        <h1>All blog ({{ blog_count}})</h1>
+        <h1>All blog ({{blog_count}})</h1>
         <div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Order By
@@ -36,7 +36,6 @@
                 <h4>Release Date: {{ post.published_at }} </h4>
                 </div>
             </div>
-        
         {% endfor %}
 
     </div>

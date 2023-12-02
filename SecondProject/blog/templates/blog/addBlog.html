@@ -12,7 +12,7 @@
 
         <div class="col-6">
             <!-- form for submitting the data -->
-
+<div class="container">
             <form action="{% url 'blog:add_blog_view' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label>Blog Title:</label>
@@ -32,6 +32,15 @@
                 <label>Content:</label>
                 <textarea class="form-control" name="content"></textarea>
                 <br>
+                <lable>Rating:</lable>
+                <select class="form-select" name="rating">
+                  <option value="1">1 Star</option>
+                  <option value="2">2 Star</option>
+                  <option value="3">3 Star</option>
+                  <option value="4">4 Star</option>
+                  <option value="5">5 Star</option>
+                </select>
+<br>
               <p>Is Published? </p>
                   <input type="radio"  name="is_published" value="True">
                   <label >Yes</label>
@@ -50,5 +59,6 @@
 
         </div>
 
+    </div>
     </div>
 {% endblock %}
