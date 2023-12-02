@@ -13,7 +13,8 @@
                 <h5>{{blog.Category}}</h5>
                 <div class="d-flex justify-content-between ">
                     <h4>{{blog.Contant}}</h4>
-                
+
+                    {% if request.user.is_staff %}
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                           Edit
@@ -23,6 +24,7 @@
                           <li><a class="dropdown-item" href="{% url 'lapblog:delete_blog_view' blog.id %}">Delete</a></li>
                         </ul>
                       </div>
+                      {% endif %}
                 </div>
                 <p>{{ blog.is_published }}</p>
             </div>
@@ -55,6 +57,7 @@
  </section>
 
  <section class="row mt-5">
+  {% if request.user.is_authenticated %}
    <h2>Add Review Reviews:</h2>
    <div class="col-6">
 
@@ -69,6 +72,13 @@
 
 
    </div>
+   {%  else %}
+
+      <p class="p-3 border border-1 ">
+        To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+      </p>
+
+      {% endif %}
  </section>
 
 

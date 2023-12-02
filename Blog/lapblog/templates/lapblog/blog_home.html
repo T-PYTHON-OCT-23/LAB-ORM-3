@@ -22,7 +22,7 @@
                     <!--<img width="100px" height="100px" src="{{blog.poster.url}}"/>-->
                     <h4>  Contant :  {{blog.Contant }}</h4>
                     <h4>is_published: {{ blog.is_published }} </h4>
-                    <h4>published_at: {{ blog.published_at }} </h4>
+                    <h4> {{ blog.published_at }} </h4>
                 </div>
             </div>
             
@@ -38,7 +38,7 @@
      {%for review in userReviews%}
      <div class="col">
        <div class="d-flex flex-column gap-2">
-         <div class="d-flex flex-column gap-2 border border-1 p-3">
+         <div class="d-flex flex-column gap-2 border border-2 p-3">
            <h3 >{{ review.full_name }}</h3>
            <h6 class="text-muted">{{ review.created_at }}</h6>
            <p>{{ review.comment }}</p>

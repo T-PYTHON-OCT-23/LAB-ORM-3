@@ -10,8 +10,15 @@ class Web (models.Model):
    category = models.CharField(max_length=64, choices=categories.choices , default="Vlog")
    poster = models.ImageField(upload_to="images/", default="images/r5.JPG")
 
+   def __str__(self):
+       return f"{silf.Title}"
+
 class Review(models.Model):
    blog =  models.ForeignKey(Web,on_delete=models.CASCADE)
    full_name = models.CharField(max_length=512)
    comment = models.TextField()
    created_at = models.DateTimeField(auto_now_add=True)
+
+
+   def __str__(self):
+       return f"{self.full_name} : {self.comment}"

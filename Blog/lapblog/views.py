@@ -3,17 +3,22 @@ from .models import Web,Review
 from django.http import  HttpResponse ,HttpRequest
 # Create your views here.
 def add_blog_view(request: HttpRequest):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
 
     #Creating a new entry into the database for a movie
-    
+    msg = None
     if request.method == "POST":
-        new_Web = Web(Title =request.POST["Title"], Contant =request.POST["Contant"], is_published =request.POST["is_published"], published_at=request.POST["published_at"], category=request.POST["category"], poster=request.FILES["poster"])
-        new_Web.save()
-        blog_id=new_Web.id
-        return redirect("lapblog:blog_detail_view",blog_id)
+      try:
+         new_Web = Web(Title =request.POST["Title"], Contant =request.POST["Contant"], is_published =request.POST["is_published"], published_at=request.POST["published_at"], category=request.POST["category"], poster=request.FILES["poster"])
+         new_Web.save()
+         blog_id=new_Web.id
+         return redirect("lapblog:blog_detail_view",blog_id)
+      except exception as e:
+        msg = f"An error occured, please fill in all fields and try again . {e}"
 
-    return render(request, "lapblog/add.html", {"categories" : Web.categories})
-
+    return render(request, "lapblog/add.html", {"categories" : Web.categories ,"msg" : msg})
+   
 
 
 def blog_home_view(request: HttpRequest):

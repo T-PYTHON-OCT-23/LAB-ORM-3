@@ -9,6 +9,11 @@
     <h1>Add new Blog</h1>
 
     <div class="row">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
 
         <div class="col-6">
             <!-- form for submitting the data -->
