@@ -21,11 +21,21 @@
                    <form action="{% url 'blogApp:add_post_view' %}" method="POST" enctype="multipart/form-data">
                    <div class="d-flex justify-content-between">
                         <h5 class="opacity-50 "> {{ blog.published_at }}</h5>
+
+
+                        {% if request.user.is_staff %}
+
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Edit</button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" href="{% url 'blogApp:update_view' blog.id %}"> Update </a></li>
+
+                        {% endif %}
+
+                        {% if request.user.is_superuser %}
+
                                 <li><a class="dropdown-item" href="{% url 'blogApp:delete_view' blog.id %}"> Delete </a></li>
+                        {% endif %}
                             </ul>
                         </div>
                    </div>
@@ -40,7 +50,7 @@
 
 <hr />  <!--  write a line -->
 
-
+{% if request.user.is_authenticated %}
 <section class="container fixed-bottom">
     <div class="row">
     <h1>Review: </h1>
@@ -68,6 +78,7 @@
         </div>
     </div>
     </div>
+    {% endif %}
 
     <div class="row">
         <h1>Add Review: </h1>
@@ -76,8 +87,12 @@
             <div>
                 <div class="d-flex justify-content-between ">
                 <h3>{{review.neme }}</h3> 
-                <button class="btn btn-primary p-3 m-3"> <a href="{% url 'main:delete_comment_view' review.id %}"> <span class="text-white">Delete</span> </a> </button>
-                </div>
+
+                    {% if request.user.is_superuser %}
+                        <button class="btn btn-primary p-3 m-3"> <a href="{% url 'main:delete_comment_view' review.id %}"> <span class="text-white">Delete</span> </a> </button>
+                    {% endif %}
+
+                    </div>
                 <p> {{review.created_at}} </p>
                 <p> {{review.comment}} </p>
                 <p> {{review.rating}} </p>

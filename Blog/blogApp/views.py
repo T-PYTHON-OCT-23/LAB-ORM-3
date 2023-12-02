@@ -3,10 +3,15 @@ from django.http import HttpRequest , HttpResponse
 from .models import Blog , Review
 
 
+
 # Create your views here.
 
 
 def add_post_view(request: HttpRequest):
+
+    
+    if not request.user.is_staff:
+        return redirect('main:eror_view')
 
     if request.method == "POST":
         read_blog_item = Blog(title=request.POST["title"], content=request.POST["content"], is_published=request.POST["is_published"],published_at=request.POST["published_at"] )
@@ -29,6 +34,7 @@ def read_blog_view(request: HttpRequest):
 
     blogs = Blog.objects.all()
 
+    #blogs = Blog.objects.all().order_by("published_at")
 
     if 'search' in request.GET:
         keyword = request.GET["search"]
@@ -36,20 +42,21 @@ def read_blog_view(request: HttpRequest):
     else:
         blogs = Blog.objects.all()
 
-    # blogs = Blog.objects.all().order_by("published_at")
-
-
     return render(request, "blogApp/read_blog.html", {"blogs" : blogs })
+
 
 # handle with not found pages 
 try:
     def detail_blog_view(request:HttpRequest , blog_id):
 
         blog_detail = Blog.objects.get(id=blog_id)
-
+        
+        
         if request.method== "POST":
             #create review comment
             # i write blog=blog_detail couse we have relashen
+            if not request.user.is_authenticated:
+                return redirect('main:eror_view')
             new_comment = Review(blog=blog_detail , neme=request.POST["name"] , comment=request.POST["comment"] , rating=request.POST["rating"])
             new_comment.save()
 
@@ -63,6 +70,11 @@ except Exception as e:
 try:
     def update_view(request :HttpRequest , blog_id):
         blog=Blog.objects.get(id=blog_id)
+
+        if not request.user.is_staff:
+            return redirect('main:eror_view')
+        
+
         if request.method == "POST":
             blog.title = request.POST["title"]
             blog.content = request.POST["content"]
@@ -84,7 +96,14 @@ except Exception as e:
 try:
     def delete_view(request :HttpRequest , blog_id):
         blog=Blog.objects.get(id = blog_id)
-        blog.delete()
+
+        if  request.user.is_superuser:
+            blog.delete()
+
+        else:  
+            return redirect('main:eror_view')
+
+            
         return redirect("blogApp:read_blog_view")
 except Exception as e:
     print(e)

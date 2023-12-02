@@ -6,6 +6,7 @@
 {% block content %} 
 
 
+{% if request.user.is_staff %}
 <section class="container">
     <h1>Add Post in Blog</h1>
     <div class="row">
@@ -45,5 +46,7 @@
         </div>
     </div>
 </section>
+
+{% endif %}
 
 {%endblock%}

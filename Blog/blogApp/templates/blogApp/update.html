@@ -6,6 +6,7 @@
 {% block content %} 
 
 
+{% if request.user.is_staff %}
 <section class="container">
     <h1>Update Page</h1>
     <div class="row">
@@ -43,5 +44,6 @@
         </div>
     </div>
 </section>
+{% endif %}
 
 {%endblock%}

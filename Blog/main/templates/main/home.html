@@ -15,17 +15,25 @@
 
 
 
+  <hr />
   <div class="container fixed-bottom ">
     <div class="row ">
-        
+      <h1 class="text-info"> All Reviews: </h1>
             {% for review in reviews %}
             <div class="col-4 border shadow rounded-4 ">
 
             <div class="d-flex justify-content-between ">
               <h2>{{review.neme}}</h2>
-              <button class="btn btn-primary p-3 m-3"> <a href="{% url 'main:delete_comment_view' review.id %}"> <span class="text-white">Delete</span> </a> </button>
-            </div>
 
+
+              {% if request.user.is_superuser %}
+
+              <button class="btn btn-primary p-3 m-3"> <a href="{% url 'main:delete_comment_view' review.id %}"> <span class="text-white">Delete</span> </a> </button>
+              {% endif %}
+
+            
+            </div>
+            
            <p>{{review.comment}}</p> 
             <p class="opacity-50">{{review.created_at}}</p>
 

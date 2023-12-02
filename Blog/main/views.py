@@ -16,6 +16,11 @@ def home_view(request: HttpRequest):
 def delete_comment_view(request :HttpRequest , comment):
     deleted_comment=Review.objects.get(id = comment)
 
-    deleted_comment.delete()
+    if request.user.is_superuser:
+        deleted_comment.delete()
 
     return redirect("main:home_view" )
+
+
+def eror_view(request : HttpRequest):
+    return render (request , "main/eror.html")

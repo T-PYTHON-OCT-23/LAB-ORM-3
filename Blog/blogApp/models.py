@@ -14,6 +14,10 @@ class Blog(models.Model):
     image = models.ImageField(upload_to="images/" , default="images/default.jpeg") 
 
 
+    #لازم تكون جوا الكلاس .. تمثيل الاوبجكت كنص
+    def __str__(self):
+        return f"{self.title}"
+
 
 
 class Review(models.Model):
@@ -22,3 +26,8 @@ class Review(models.Model):
     comment=models.TextField()
     rating=models.IntegerField()
     created_at=models.DateTimeField(auto_now_add=True)
+
+
+    #لازم تكون جوا الكلاس .. تمثيل الاوبجكت كنص
+    def __str__(self):
+        return f"{self.neme} : {self.comment}"
