@@ -11,6 +11,8 @@ class Info(models.Model):
     category = models.CharField(max_length=64, choices=categories.choices,default="Other")
     poster = models.ImageField(upload_to="images/", default="images/content.jpeg")
 
+    def __str__(self) -> str:
+        return f"{self.title}"
 class Comment(models.Model):
     info=models.ForeignKey(Info , on_delete=models.CASCADE)
     name=models.CharField(max_length=200)
@@ -18,3 +20,5 @@ class Comment(models.Model):
     Comment=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return f"{self.name}"

@@ -15,8 +15,8 @@
 
             <div class="col-4">
                 
-                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
-                     <img src="{{i.poster.url}}"/>
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow h-100">
+                     <img src="{{i.poster.url}}" style="height: 10rem;"/>
                     <a href="{% url 'info:info_details_view' i.id %}"> <h2>{{ i.title }} </h2></a>
 
                     <h4> Contant:  {{i.contant}}</h4>

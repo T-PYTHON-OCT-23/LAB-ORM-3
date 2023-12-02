@@ -30,6 +30,7 @@
     <hr />
 
     <section class="row">
+      
       <h2>Reviews:</h2>
         <div class="col">
           <div class="d-flex flex-column gap-2">
@@ -44,6 +45,7 @@
         </div>
     </section>
     <section class="row mt-5">
+      {% if request.user.is_authenticated %}
       <h2>Add Comment:</h2>
       <div class="col-6">
 
@@ -63,6 +65,7 @@
 
 
       </div>
+      {%endif%}
     </section>
     
 

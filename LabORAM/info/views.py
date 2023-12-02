@@ -10,6 +10,8 @@ from .models import Info , Comment
 def add_info_view(request: HttpRequest):
 
     #Creating a new entry into the database for a info
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
 
     if request.method == "POST":
         new_info = Info(title=request.POST["title"], contant=request.POST["contant"], is_published=request.POST["is_published"], published_at=request.POST["published_at"],category=request.POST["category"], poster=request.FILES["poster"])
@@ -54,6 +56,8 @@ def info_details_view(request: HttpRequest,info_id):
 
 
 def update_info_view(request: HttpRequest, info_id):
+    if not request.user.is_staff:
+        return render(request, "main/not_authorized.html", status=401)
 
     info = Info.objects.get(id=info_id)
 
@@ -71,6 +75,8 @@ def update_info_view(request: HttpRequest, info_id):
 
 
 def delete_info_view(request: HttpRequest, info_id):
+    if not request.user.is_superuser:
+        return render(request, "main/not_authorized.html", status=401)
 
     info = Info.objects.get(id=info_id)
     info.delete()
