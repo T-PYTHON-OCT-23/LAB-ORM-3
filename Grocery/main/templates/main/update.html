@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% block title %}Update product{% endblock%}
+{% block content%}
+<div class="home m-5 p-3">
+<h1 class="text-center">Update {{product.name}}</h1>
+<form action="{% url 'main:update_page' product.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Name:</label>
+    <input class="form-control" type="text" name="name" placeholder="Name of product" value="{{product.name}}"/>
+    <label>Description:</label>
+    <textarea class="form-control" name="description">{{product.description}}</textarea>
+    <label>Price:</label>
+    <input class="form-control" type="number" name="price" placeholder="Price of product" value="{{product.price}}"/>
+    <label>Quantity:</label>
+    <input class="form-control" type="number" name="quantity" placeholder="Quantity of product" value="{{product.quantity}}"/>
+    <label>brand:</label>
+    <input class="form-control" type="text" name="brand" placeholder="Brand of product" value="{{product.brand}}"/>
+    <label>Category</label>
+    {% for key, value in categories.choices %}
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" {% if product.category == key %} checked {% endif %}>
+        <label class="form-check-label" for="{{key}}">{{value}}</label>
+    </div>
+    {% endfor %}
+    <img src="{{product.image.url}}" height="200px" width="250" class="rounded"/>
+    <br>
+    <label>image:</label>
+    <input type="file" name="image"  class="form-control" accept="image/*"/>
+    <input class="btn btn-success mt-4" type="submit" value="Update Product" />
+
+</form>
+</div>
+{% endblock %}

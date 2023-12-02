@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% block title %}Login page{% endblock%}
+{% block content%}
+<div class="home m-3 p-3">
+    <section>
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{msg}}
+          </div>
+        {% endif %}
+        <h2>Log in</h2>
+        <form action="{% url 'accounts:login_page' %}" method="POST">
+          {% csrf_token %}
+          <label>Username:</label>
+          <input class="form-control" type="text" name="username"/>
+          <label>Password:</label>
+          <input class="form-control" type="password" name="password"/>
+          <input class="btn btn-success mt-4" type="submit" value="Sign In" />
+          <h5 class="mt-2">You don't have an account ? please <a href="{% url 'accounts:register_user' %}">Sign up</a>.</h5>
+        </form>
+        </section>
+</div>
+{% endblock %}

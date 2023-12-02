@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% block title %}Register page{% endblock%}
+{% block content%}
+<div class="home m-3 p-3">
+    <section>
+        <h2>Register New User</h2>
+        <form action="{% url 'accounts:register_user'%}" method="POST">
+          {% csrf_token %}
+          <label>Username:</label>
+          <input class="form-control" type="text" name="username"/>
+          <label>First name:</label>
+          <input class="form-control" type="text" name="first_name"/>
+          <label>Last_name:</label>
+          <input class="form-control" type="text" name="last_name"/>
+          <label>Email:</label>
+          <input class="form-control" type="email" name="email"/>
+          <label>Password:</label>
+          <input class="form-control" type="password" name="password"/>
+          <input class="btn btn-success mt-4" type="submit" value="Sign Up" />
+        </form>
+        </section>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block title %}{{request.GET.search}} Product{% endblock%}
+{% block content%}
+<section class="home m-5 p-3">
+    <div class="row">
+    <h1 class="text-center">{{request.GET.search}} product</h1>
+    <div class="d-flex flex-column gap-2">
+        {% for product in products %}
+        <h2>{{ product.name}}</h2>
+        <img src="{{product.image.url}}" height="200px" width="250"/>
+        <h4>Description: {{ product.description }}</h4>
+        <h4>Price: {{ product.price }} $</h4>
+        <h4>Quantity: {{ product.quantity }}</h4>
+        <h4>Brand: {{product.brand}}</h4>
+        <h4>Category: {{product.category}}</h4>
+        <hr>
+        {% endfor %}
+    </div>
+    <div class="row">
+          <a class="btn btn-success col" href="{% url 'main:browse_page'%}">Return to browse products</a>
+    </div>
+    </div>
+</section>
+{% endblock%}

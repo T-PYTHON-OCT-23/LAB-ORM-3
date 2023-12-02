@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block title %}Browse Product{% endblock%}
+{% block content%}
+<div class="container home text-center">
+  <h2 class="mt-5">Browse Product:</h2>
+<section class="row row-cols-3 my-4">
+        {% for product in products %}
+        <div class="m-3 p-3" style="width:250px; height: 280px;">
+        <div class="col align-items-center">
+          <h5>{{product.name}}</h5>
+          <img src="{{product.image.url}}" width="200px" height="150px" class="rounded"/>
+          <h6 class="mt-2">price: {{product.price}}$</h6>
+          <a class="btn btn-success mt-1" href="{% url 'main:detail_page' product.id %}">Show product detail</a>
+      </div>
+    </div>
+        {% endfor %}
+</section>
+</div>
+{% endblock %}

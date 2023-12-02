@@ -1,0 +1,77 @@
+{% extends 'main/base.html' %}
+{% block title %}Detail Product{% endblock%}
+{% block content%}
+<section class="home m-5 p-4">
+    <div class="row">
+    <h1 class="text-center">Detail product</h1>
+    <div class="d-flex flex-column gap-2">
+        <h2>{{ product.name}}</h2>
+        <img src="{{product.image.url}}" height="200px" width="250"/>
+        <h4>Description: {{ product.description }}</h4>
+        <h4>Price: {{ product.price }} $</h4>
+        <h4>Quantity: {{ product.quantity }}</h4>
+        <h4>Brand: {{product.brand}}</h4>
+        <h4>Category: {{product.category}}</h4>
+    </div>
+    <div class="row">
+      {% if request.user.is_staff %}
+        <div class="btn-group col">
+            <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Edit
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'main:update_page' product.id %}">Update</a></li>
+                <li><a class="dropdown-item" href="{% url 'main:delete_product' product.id %}">Delete</a></li>
+            </ul>
+          </div>
+        {% endif %}
+          <a class="btn btn-success col" href="{% url 'main:browse_page'%}">Return to browse products</a>
+    </div>
+    </div>
+<hr>
+<section class="row">
+    <h2>Reviews:</h2>
+      <div class="col">
+        <div class="d-flex flex-column gap-2">
+          {% for comment in comments %}
+          <div class="d-flex flex-column gap-2 border border-success border-3 p-3">
+            <h3 >{{ comment.name }}</h3>
+            <h6 class="text-muted">{{ comment.date }}</h6>
+            <p>{{ comment.content }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+  </section>
+<hr>
+<section>
+  {% if request.user.is_authenticated %}
+    <h2>Add reviews</h2>
+    <form action="{% url 'main:detail_page' product.id %}" method="POST">
+      {% csrf_token %}
+      <label>name:</label>
+      <input class="form-control" type="text" name="name" required/>
+          <label>rating?</label>
+          <select name="rating" class="form-select" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+          </select>
+      <label>Content:</label>
+      <textarea class="form-control" name="content" required></textarea>
+      <input class="btn btn-success mt-4" type="submit" value="Add comment" />
+    </form>
+    {%  else %}
+    <h2>Let's add a comment!!</h2>
+    <h3 class="p-3">
+      To post a review please <a href="{% url 'accounts:login_page' %}">sign in</a>.
+    </h3>
+    {% endif %}
+    </section>
+</section>
+
+
+{% endblock%}

@@ -1,0 +1,21 @@
+body{
+    overflow-x: hidden;
+}
+
+.home{
+    background-color:rgb(0, 102, 0,0.3);
+    border-radius: 30px;
+}
+.main{
+    background-image: url("/static/images/back.jpg");
+    background-size: cover;
+    position: absolute;
+    height: 50vh;
+    width: 100vw;
+}
+.sub{
+    background-color: rgb(255, 255, 255,0.8);
+    border-radius: 30px;
+}
+
+

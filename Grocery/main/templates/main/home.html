@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{%load static %}
+{% block title %}Home{% endblock%}
+{% block content%}
+<div class="main">
+<div class="row sub m-5 col-6 p-3">
+    <h1>Welcome to grocery<h1>
+    <h2>organic products</h2>
+    <a class="btn btn-success col-3 mt-4 mx-5" href="{% url 'main:browse_page'%}">Shop Now</a>
+</div>
+<section class="row m-1 p-4">
+    <h2>Top Reviews:</h2>
+      <div class="col">
+        <div class="d-flex flex-row gap-2">
+          {% for comment in comments %}
+          <div class="d-flex flex-column gap-2 border border-success border-2 p-3">
+            <h3 >{{ comment.name }}</h3>
+            <h6 class="text-muted">{{ comment.date }}</h6>
+            <p>{{ comment.content }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>   
+  </section>
+</div>
+{% endblock %}
