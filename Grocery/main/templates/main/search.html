@@ -10,7 +10,9 @@
         <img src="{{product.image.url}}" height="200px" width="250"/>
         <h4>Description: {{ product.description }}</h4>
         <h4>Price: {{ product.price }} $</h4>
+        {% if request.user.is_staff %}
         <h4>Quantity: {{ product.quantity }}</h4>
+        {% endif %}
         <h4>Brand: {{product.brand}}</h4>
         <h4>Category: {{product.category}}</h4>
         <hr>
