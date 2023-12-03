@@ -10,6 +10,9 @@ class Blog(models.Model):
     category=models.CharField(max_length=156,choices=categories.choices, default="")
     image = models.ImageField(upload_to="img/", default="img/default.png")
 
+    def __str__(self) -> str:
+        return f"{self.title}"
+
 
 class Reviews(models.Model):
     blog=models.ForeignKey(Blog, on_delete=models.CASCADE)
@@ -18,4 +21,7 @@ class Reviews(models.Model):
     rating= models.IntegerField()
     comment=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return f"{self.name}"
 

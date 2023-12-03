@@ -22,7 +22,9 @@
             <div class="navbar-nav">
               <a class="nav-link active" aria-current="page" href="{% url 'main:home_views' %}">Home</a>
               <a class="nav-link active" aria-current="page" href="{% url 'blog:home_blog_views' %}">POST</a>
+              {% if request.user.is_staff %}
               <a class="nav-link" href="{% url 'blog:add_blog_views' %}">Add Post</a>
+              {%endif%}
             </div>
             <div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,11 +37,29 @@
                 <li><a name="category" class="dropdown-item" href="{%url 'blog:home_blog_views'%}?category=Food">Food</a></li>
               </ul>
             </div>
+          
           </div>
           <form class="d-flex" role="search" action="{%url 'blog:search_blog_views'%} " method="get">
             <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
+          <div class="p-3">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link m-0">welcome : {{ request.user.username }}</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link m-0" href="#">Logout</a>
+            </li>
+            
+          {% else %}
+              <li class="nav-item">
+                <a class="nav-link m-0" href="{% url 'users:register_views' %}">Sing in </a>
+              </li>
+            
+          {% endif %}
+      </div>
         </div>
       </nav>
     
