@@ -21,7 +21,7 @@
                     <a  type="button" class="btn btn-light btn-lg col" href="{% url 'blogs:add'%}">Add blog</a>
                   {% endif %}
                
-                    <a type="button" class="btn btn-light btn-lg col" href="{% url 'blogs:read'%}">Read blog</a>
+                     <a type="button" class="btn btn-light btn-lg col" href="{% url 'blogs:read'%}">Read blog</a>
                   
                 </div>
             </div>
@@ -30,16 +30,15 @@
 
     <hr/>
     <div class="row">
-        <a  class="mt-5 color-black h" href="{% url 'blogs:read' %}" ><h2>Top Blog</h2></a>
+        <a  class="mt-5  link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{% url 'blogs:read' %}" ><h2>Top Blog</h2></a>
         {% for blog in blogs %}
 
             <div class="mt-4 col-4 m-20px">
 
-                <div class="d-flex flex-column gap-2 p-3 border border-1  shadow">
+                <div class="d-flex flex-column gap-2 p-3  shadow">
                     <img src="{{blog.poster.url}}" width="100%" height="300" />
-                    <a href="{% url 'blogs:detail'  blog.id %}"><h4>Title: {{blog.title}}</h4></a>
-                    <h5>is published: {{blog.is_published}} </h5>
-                    <h5>published at: {{blog.published_at}}</h5>
+                    <a href="{% url 'blogs:detail'  blog.id %}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h4>{{blog.title}}</h4></a>
+                    <h6>published at: {{blog.published_at}}</h6>
                 </div>
 
             </div>
@@ -55,9 +54,9 @@
           <div class="">
             <div class="d-flex flex-row gap-4 ">
               {% for review in reviews %}
-                <div class="d-flex flex-column border border-black border-1 gap-2 p-3">
-                  <h3 >{{ review.name }}</h3>
-                  <a href="{% url 'blogs:detail'  review.blog.id %}"><h6>{{review.blog.titel}}</h6></a> 
+                <div class="d-flex flex-column border border-dark gap-2 p-3">
+                  <h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4>
+                  <p><a href="{% url 'blogs:detail'  review.blog.id %}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{review.blog.title}}</a></p>
                   <p>{{review.rating}}</p>
                   <p >{{ review.date_add }}</p>
                   <p>{{ review.comment }}</p>

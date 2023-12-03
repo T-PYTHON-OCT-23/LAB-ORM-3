@@ -1,6 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Blog ,Review
+from favorite.models import Favorite
 
 
 
@@ -17,7 +18,7 @@ def add(request : HttpRequest):
      return render(request, 'main/not_authorized.html')
     
     msg = None
-    
+
     if request.method=="POST":
         try:
             new_blog=Blog(title=request.POST['title'],content=request.POST['content'],is_published=request.POST['is_published'],published_at=request.POST['published_at'],category=request.POST['category'])
@@ -36,18 +37,17 @@ def add(request : HttpRequest):
 def detail(request:HttpRequest, blog_id):
 
     detail = Blog.objects.get(id=blog_id)
-
+    reviews = Review.objects.filter(blog=detail)
+    is_favored = Favorite.objects.filter(blog=detail, user=request.user).exists()
+    
     if request.method=="POST":
-     
+       
         if not request.user.is_authenticated:
             return render(request, "main/not_authorized.html")
      
-    new_review = Review(blog=detail, name=request.POST["name"], rating=request.POST["rating"],comment=request.POST["comment"])
-    new_review.save()
-    
-    reviews = Review.objects.filter(blog=detail)
-
-    return render(request, "blogs/detail.html", {"blog" : detail ,"reviews" : reviews})
+        new_review = Review(blog=detail, user=request.user, rating=request.POST["rating"],comment=request.POST["comment"])
+        new_review.save()
+    return render(request, "blogs/detail.html", {"blog" : detail ,"reviews" : reviews,"is_favored":is_favored })
 
 
 def update(request : HttpRequest,blog_id):

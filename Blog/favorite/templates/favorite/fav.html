@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block title %} My Favorites {% endblock %}
+
+
+{% block content %}
+    <section class="container">
+        <h1>My Favorites</h1>
+
+
+
+        {% if favorites.count == 0 %}
+        <div class="alert alert-info">You don't have any favorites yet.</div>
+        {% endif %}
+        <div class="row">
+         {% for fav in favorites %}
+           
+                <div class="mt-4 col-4">
+    
+                    <div class="d-flex flex-column gap-2 p-3 border border-1  shadow">
+                        <img src="{{ fav.blog.poster.url }}" width="100%" height="300" />
+                        <a href="{% url 'blogs:detail' fav.blog.id %}"><h4>{{ fav.blog.title }}</h4></a>
+
+    
+                </div>
+        </div>
+      
+            {% endfor %}
+    
+        </div>
+    </section>
+{% endblock %}

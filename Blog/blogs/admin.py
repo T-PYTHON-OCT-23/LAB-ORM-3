@@ -13,7 +13,7 @@ admin.site.register(Blog,BlogAdmin)
 
 
 class ReviewAdmin(admin.ModelAdmin):
-    list_display= ('name','date_add','rating',)
+    list_display= ('user','date_add','rating',)
     list_filter=('blog',)
 
 admin.site.register(Review,ReviewAdmin)

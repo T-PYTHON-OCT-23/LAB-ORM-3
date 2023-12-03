@@ -5,17 +5,21 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
-def register(request :HttpRequest):
+def register_user(request :HttpRequest):
+    msg= None
     if request.method == "POST":
-        user = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
-        user.save()
-        return redirect("accounts:login")
+        try:
+            user = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
+            user.save()
+            return redirect("accounts:login_user")
+        except Exception as e:
+          msg= f"The username exists, please enter another username {e}"
     
-    return render(request, "accounts/register.html")
+    return render(request, "accounts/register.html", {"msg" : msg})
 
 
 
-def login(request: HttpRequest):
+def login_user(request: HttpRequest):
     msg = None
     if request.method == "POST":
         user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
@@ -32,8 +36,9 @@ def login(request: HttpRequest):
 
 
 
-def logout(request: HttpRequest):
+def logout_user(request: HttpRequest):
     if request.user.is_authenticated:
         logout(request)    
 
     return redirect("main:home")
+

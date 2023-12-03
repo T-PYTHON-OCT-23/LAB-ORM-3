@@ -53,14 +53,8 @@ h1{
     text-decoration: none;
     display: center;
 
-
 }
 
-
-input:valid{
-    border-color: green;
-}
-
-input:invalid{
-    border-color: red;
+.f{
+    
 }

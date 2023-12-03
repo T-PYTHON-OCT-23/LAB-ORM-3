@@ -8,10 +8,14 @@
 <section class="container mt-5">
     <h1>Register New User</h1>
     <div class="row">
-    
+        {% if msg %}
+            <div class="alert alert-danger" role="alert">
+                {{ msg }}
+            </div>
+        {% endif %}
         <div class="col-6">
 
-            <form class="d-flex flex-column gap-1" action="{% url 'accounts:register' %}" method="POST">
+            <form class="d-flex flex-column gap-1" action="{% url 'accounts:register_user' %}" method="POST">
                 {% csrf_token %}
 
                 <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
