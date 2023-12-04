@@ -9,18 +9,24 @@ def add_blog_view(request: HttpRequest):
      
     if not request.user.is_staff:
         return render(request, 'main/not_authorized.html' , status=401)
+    
     message = None
     if request.method == "POST":
-        new_blog = Blog(title=request.POST["title"], content=request.POST["content"], is_published=request.POST["is_published"], published_at=timezone.now(),category=request.POST["category"],poster=request.FILES["poster"])
+      try:
+         new_blog = Blog(title=request.POST["title"], content=request.POST["content"], is_published=request.POST["is_published"], published_at=timezone.now(),category=request.POST["category"],poster=request.FILES["poster"])
         
-    if request.method == "POST":
+       
+         if "poster" in request.FILES:
+            new_blog .poster = request.FILES["poster"]
 
-      
-        new_blog.save()
+         new_blog.save()
 
-        return redirect("post:display_blog_view")
+         return redirect("post:display_blog_view")
+      except Exception as e:
+        message = f"An error occured, please fill in all fields and try again . {e}"
 
-    return render(request, "post/add_post.html" , {"categories" : Blog.categories})
+
+    return render(request, "post/add_post.html" , {"categories" : Blog.categories ,  "message" : message})
 
 
 def display_blog_view(request: HttpRequest):
@@ -53,19 +59,18 @@ def display_blog_view(request: HttpRequest):
 
 
 def post_detail_view(request:HttpRequest, post_id):
-    
+   
     try:
      post=Blog.objects.get(id=post_id )
-    
+
      if request.method == "POST":
          new_review = Review(post=post, full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])
          new_review.save()
     except Exception as e:
        return render(request, "post/not_exist.html")
     post_reviews = Review.objects.filter(post=post)
-    
-    return render(request, "post/post_detail.html", {"post" : post , "reviews" :post_reviews})
 
+    return render(request, "post/post_detail.html", {"post" : post , "reviews" :post_reviews})
 
 
 def not_exist_view(request:HttpRequest):

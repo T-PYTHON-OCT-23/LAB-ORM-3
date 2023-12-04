@@ -5,8 +5,8 @@ from post.models import Blog, Review
 
 def home_view(request: HttpRequest):
 
-    if request.user.is_authenticated:
-        print(request.user.first_name)
+  #  if request.user.is_authenticated:
+ #       print(request.user.first_name)
 
     blogs = Blog.objects.all().order_by("-published_at")[0:5]
     reviews =Review.objects.all().order_by("-created_at")[0:5]
