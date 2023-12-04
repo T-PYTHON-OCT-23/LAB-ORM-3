@@ -1,0 +1,88 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} {{ sport1.name }} {% endblock %}
+{% block content %}
+
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+
+            <div class="d-flex flex-column gap-2">
+                <h1>{{sport1.name}}</h1>
+                <div class="image-container">
+                    <img class="detail-poster rounded-5 object-fit-cover image-size" src="{{ sport1.image.url }}" alt="Sport Image"  width="300" height="200" >
+                  </div>
+                <div class=" d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-1">
+                        <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{sport1.published_at}}</span>
+                        {{sport1.category}}
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+                      <h5 class="p-0 m-0">{{sport1.rating}}</h5>
+                      <span class="material-symbols-outlined">star</span>
+                  </div>
+
+                </div>
+                <div class="d-flex justify-content-end ">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Edit </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{%url 'index:update_view' sport1.id%}">Update</a></li>
+                          <li><a class="dropdown-item" href="{%url 'index:delet_view' sport1.id%}">Delete</a></li>
+                        </ul>
+                      </div>
+                </div>
+                <p>{{sport1.description}}</p>
+            </div>
+        </div>
+    </div>
+
+        <!-- Reviews Secgtion-->
+        <hr />
+
+        <section >
+            <h2>Reviews:</h2>
+            <div class="row row-cols-1 row-cols-4 mt-3">
+            {% for review in reviews %}
+            <div class="col">
+              <div class="card p-3">
+                    <h3>{{ review.full_name }}</h3>
+                    <h6 class="text-muted">{{ review.created_at }}</h6>
+                    <p>{{ review.comment }}</p>
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+        </section>          
+    
+        <section class="row mt-5">
+          <h2>Add Review:</h2>
+          <div class="col-6">
+    
+            <form class="d-flex flex-column gap-2" action="{% url 'index:add_review_view' sport1.id%}" method="POST">
+              {% csrf_token %}
+              <input type="text" class="form-control"  name="full_name" placeholder="Full Name" required minlength="5"/>
+              <select class="form-select" name="rating">
+                <option value="1">1 Star</option>
+                <option value="2">2 Star</option>
+                <option value="3">3 Star</option>
+                <option value="4">4 Star</option>
+                <option value="5">5 Star</option>
+              </select>
+    
+              <textarea class="form-control" name="comment" placeholder="Your Review" required minlength="5"></textarea>
+    
+              <input type="submit" value="Add Review" class="btn btn-primary" />
+            </form>
+    
+    
+          </div>
+        </section>
+    
+    
+    
+</section>
+
+{%endblock%}

@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Update Sport</h1>
+
+    <div class="row">
+
+        <div class="col-6">
+            <!-- form for submitting the data -->
+
+            <form action="{% url 'index:update_view' sport1.id %}" method="POST"  enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Sport Name::</label>
+                <input class="form-control" type="text" name="name" placeholder="name of sport" value="{{sport1.name}}" />
+
+                <label>Sport discription::</label>
+                <textarea class="form-control" name="description" >{{sport1.description}}</textarea>
+
+                <label>Sport Rating:</label>
+                <select name="rating" class="form-select">
+                    <option value="1"  {% if sport1.rating == 1 %} selected {% endif %}>1 Star</option>
+                    <option value="2" {% if sport1.rating == 2 %} selected {% endif %}>2 Star</option>
+                    <option value="3" {% if sport1.rating == 3 %} selected {% endif %}>3 Star</option>
+                    <option value="4" {% if sport1.rating == 4 %} selected {% endif %}>4 Star</option>
+                    <option value="5" {% if sport1.rating == 5 %} selected {% endif %}>5 Star</option>
+                </select>
+
+                <label>Sport Category</label>
+
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" {% if sport1.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <label>Is Published:</label>
+                <select name="is_published" >
+                    <option value="True"  {% if sport1.rating == True %} selected {% endif %} >Yes</option>
+                    <option value="Fales"  {% if sport1.rating == Fales %} selected {% endif %} >No</option>
+                </select>
+
+                <label >Published At </label>
+                    <input type="date" name="published_at" value="{{sport1.published_at|date:'Y-m-d'}}">
+
+                <label >Sport Image</label>
+                <img src="{suport1.image.url}" alt="">
+                   <input type="file" name="image" >
+                
+                <input class="btn btn-primary" type="submit" value="Update Sport" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{%endblock%}

@@ -1,0 +1,91 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All Movies {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+
+    <div class="container text-center p-4">
+        <h1>All Sport</h1>
+    </div>
+
+
+    <div class="container row g-4 row-cols-1 row-cols-md-3">
+
+        {% for a in sport %}
+        <div class="col" style="width: 300px;">
+            <div class="movie-card d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                <img src="{{a.image.url}}" alt="">
+                <div class="p-3 d-flex flex-column">
+                    <a class="text-decoration-none" href="{% url 'index:details_view' a.id %}">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="card-title" style="font-size: 18px;">{{ a.name }}</h2>
+                            <div class="d-flex align-items-center gap-1">
+                                <h5 class="p-0 m-0">{{a.rating}}</h5>
+                                <span class="material-symbols-outlined">star</span>
+                            </div>
+                        </div>
+                    </a>
+                    <span class="releae ps-3 pe-3 text-dark">{{a.category}}</span>
+                    <span class="releae ps-3 pe-3 text-dark">{{a.published_at}}</span>
+                </div>
+                
+            </div>
+        </div>
+    {% endfor %}
+    
+    
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+
+<section class="container pt-4">
+
+    <div class="d-flex justify-content-between">
+    <h1>All Sport</h1>
+
+
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
+
+        {% for a in sport %}
+
+            <div class="col">
+                <div class="movie-card d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                    <img src="{{a.image.url}}" alt="">
+                    <div class="p-3 d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-1">
+                            <div class="p-3 d-flex flex-column">
+                                <a class=" text-decoration-none" href="{% url 'index:details_view'  a.id %}"><h2>{{ a.name }}</h2></a>
+                            </div>
+                            
+                            <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{a.description}}</span>
+                            <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{a.is_published}}</span>
+                            <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{a.published_at}}</span>
+                            <div class="d-flex align-items-center gap-1">
+                                <h5 class="p-0 m-0">{{a.rating}}</h5>
+                                <span class="material-symbols-outlined">star</span>
+                            </div>
+                            <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{a.category}}</span>
+                            
+                        </div>
+
+                       
+                    </div>
+                    
+                </div>
+            </div>
+            
+
+
+        {% endfor %}
+
+
+    </div>
+
+</section>
