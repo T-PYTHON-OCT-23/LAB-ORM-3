@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Blog, Review 
+from favorites.models import Favorite
 
 # Create your views here.
 
@@ -17,6 +18,7 @@ def add_blog_view(request: HttpRequest):
     return render(request,"blog/addBlog.html", {"categories" : Blog.categories})
 
 
+
 def read_blog_view(request: HttpRequest):
     
     if "sort" in request.GET and request.GET["sort"] == "oldest":
@@ -29,22 +31,30 @@ def read_blog_view(request: HttpRequest):
     return render(request, "blog/blog_home.html", {"blog" : blog , "blog_count" : blog_count})
 
 
+
 def blog_detail_view(request:HttpRequest, blog_id):
 
     blog_detail = Blog.objects.get(id=blog_id)
-
+#to add review
     if request.method=="POST":
-        review = Review(blog=blog_detail ,name=request.POST["name"] ,review=request.POST["review"] , rating=request.POST["rating"] )
+        review = Review(blog=blog_detail ,user=request.user ,review=request.POST["review"] , rating=request.POST["rating"] )
         review.save()
 
     reviews = Review.objects.filter(blog=blog_detail)
+  #check if current logged in user has favored this movie
+    is_favored = Favorite.objects.filter(blog=blog_detail, user=request.user.id).exists()
 
-    return render(request, "blog/blog_detail.html", {"blog" : blog_detail , "reviews" : reviews})
+    return render(request, "blog/blog_detail.html", {"blog" : blog_detail , "reviews" : reviews , 'is_favored': is_favored })
+
 
 
 
 def update_blog_view(request: HttpRequest, blog_id):
 
+
+    # if not request.user.is_staff:
+    #     return render(request, "main/not_authorized.html", status=401)
+    
     blog = Blog.objects.get(id=blog_id)
 
     if request.method == "POST":
@@ -62,12 +72,16 @@ def update_blog_view(request: HttpRequest, blog_id):
     return render(request, "blog/update.html", {"blog" : blog , "categories"  : Blog.categories})
 
 
+
+
 def delete_blog_view(request: HttpRequest, blog_id):
 
     blog = Blog.objects.get(id=blog_id)
     blog.delete()
 
     return redirect("blog:read_blog_view")
+
+
 
 
 def search_view (request: HttpRequest):
@@ -80,6 +94,8 @@ def search_view (request: HttpRequest):
 
 
     return render(request, "blog/search_page.html", {"blog" : blog})
+
+
 
 
 

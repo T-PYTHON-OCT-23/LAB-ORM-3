@@ -34,14 +34,29 @@ h1, h2, h3, h4, h5 ,h6{
     transition: all 3s 1s;
 }
 
-#welcom h2:hover{
-
-}
-
 .footer{ 
     position: fixed;
     background-color: white;
     color: black;
     text-align: center;
     width: 100vw;
+}
+
+.poster {
+    height: 350px;
+    object-fit: cover;
+}
+
+.detail-poster {
+    max-height: 50vh;
+}
+
+.favored i{
+    color: black;
+}
+
+.avatar img{
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
 }

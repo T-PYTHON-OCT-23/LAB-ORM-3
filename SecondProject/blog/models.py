@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Blog(models.Model):
@@ -13,10 +14,10 @@ class Blog(models.Model):
     rating = models.IntegerField()
     poster = models.ImageField(upload_to="img/" , default="img/default.jpg")
 
-class Review(models.Model):
 
+class Review(models.Model):
     blog= models.ForeignKey(Blog , on_delete=models.CASCADE)
-    name= models.CharField(max_length=200)
+    user = models.ForeignKey(User , on_delete= models.CASCADE)
     date= models.DateTimeField(auto_now_add=True)
     review= models.TextField()
     rating = models.IntegerField()

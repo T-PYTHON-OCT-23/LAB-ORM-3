@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block title %} My Favorites {% endblock %}
+
+
+{% block content %}
+    <section class="container p-3">
+        <h1>My Favorites</h1><br>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% if favorites.count == 0 %}
+             <div class="alert alert-info">You don't have any favorites yet.</div>
+            {% endif %}
+          
+            {% for fav in favorites %}
+            <div class="col">  
+
+                <div class="card gap-2" style="width: 18rem;">
+                    <img src="{{ fav.blog.poster.url }}" class="card-img-top object-fit-cover" >
+                    <div class="card-body">
+                      <h5 class="card-title">{{ fav.blog.title }}</h5>
+                        <div>
+                            <a class="btn btn-primary" href="{% url 'blog:blog_detail_view' fav.blog.id %}"><h4>Check it out</h4></a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+    </section>
+{% endblock %}

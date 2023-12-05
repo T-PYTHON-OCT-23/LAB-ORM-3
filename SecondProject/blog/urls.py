@@ -12,5 +12,6 @@ urlpatterns = [
     path("delete/<blog_id>", views.delete_blog_view , name="delete_blog_view"),
     path("search/", views.search_view, name="search_view"),
     path("category/", views.blog_category_view, name="blog_category_view"),
-    
+   # path("review/add/<blog_id>/", views.add_review_view, name="add_review_view")
+
 ]

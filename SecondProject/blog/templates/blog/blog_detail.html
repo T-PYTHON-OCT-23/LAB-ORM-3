@@ -5,10 +5,29 @@
 {% block content %}
 
 <section class="container pt-4">
+ <div class="row">
+    <div class="col">
+      
+      <div class="d-flex flex-column gap-2">
+          <h1>{{ blog.title}}</h1>
+          <img class="detail-poster rounded-5 object-fit-cover "style="width: 90rem; max-height: 50vh;
+          object-fit: cover;" src="{{blog.poster.url}}" />
+          <h5> {{ blog.category }}</h5>
+      </div>
+      
+         <div class="d-flex align-items-center gap-1">
+          {% if not is_favored %}
+          <a href="{% url 'favorites:add_favorite_view' blog.id %}" class="favored"><i class="bi bi-bookmark"></i></a>
+          {% else %}
+          <a href="{% url 'favorites:add_favorite_view' blog.id %}" class="favored"><i class="bi bi-bookmark-fill"></i></a>
+          {% endif %}
+         
+          
+          <h6 class="p-0 m-0">|</h6>
+          <h5 class="p-0 m-0">{{blog.rating}}</h5>
+          <span class="material-symbols-outlined">star</span>
+      </div>
 
-    <div class="d-flex flex-column gap-2">
-        <h1>{{ blog.title}}</h1>
-        <h5> {{ blog.category }}</h5>
 
         <div class="d-flex justify-content-between ">
             <h4>Blog Bublished: {{blog.published_at }}</h4>
@@ -30,6 +49,7 @@
         <p><b>Conternt:</b> <br>{{ blog.content  }}</p>
     </div>
     
+
 <br>
 <hr />
 
@@ -38,7 +58,7 @@
         {% for review in reviews %} 
         <div class="col ">
             <div class="card p-3">
-                <h6>{{review.name}}</h6>
+                <h6>{{review.user.first_name}} {{review.user.last_name}}</h6>
                 <p>{{review.rating}} Star<p> 
                 <p>{{review.date}}<p>
                 <h6>{{review.review}}</h6>
@@ -57,9 +77,6 @@
         <form class="d-flex flex-column gap-2" action="{% url 'blog:blog_detail_view' blog.id  %}" method="POST">
           {% csrf_token %}
 
-          <lable>Name:</lable>
-          <input type="text" class="form-control"  name="name" placeholder="Enter your name"/>
-         
           <lable>Rating:</lable>
           <select class="form-select" name="rating">
             <option value="1">1 Star</option>
@@ -85,8 +102,9 @@
 
     </section>
 
+  </div>
+</div>
 </section>
-
 
 
 
