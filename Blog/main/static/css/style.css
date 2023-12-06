@@ -41,68 +41,34 @@ h3{
     color: orange;
 }
 
- #review {
-    color: aqua;
+.fav-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+.favored i{
+    color: red;
+ 
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
 }
 
-.comment {
-    background-color: rgba(255, 255, 255, 0.644);
-    color: rgb(105, 98, 98)
-    
+.social {
+    font-size: 2rem;
+    color: black;
 }
 
-.stara{
-    size: 20px;
+.social:hover {
+    color: red;
 }
-  .rating {
-    display: inline-block;
-    font-size: 0;
-    position: relative;
-    text-transform: capitalize;
-    color: rgb(119, 119, 119);
-  }
-    
-  label {
-    float: right;
-    padding: 0;
-    font-size: 45px;
-    cursor: pointer;
-  }   
-  label::before {
-    content: "\2606";
-    padding-bottom: 8px;
-    display: inline-block;
-    transition: 0.2s;
-  } 
-  span {
-    opacity: 0;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    height: 20px;
-    font-size: 1rem;
-    white-space: nowrap;
-    transition: 0.15s ease-out;
-    pointer-events: none;
-    letter-spacing: -2px;
-    transform: translateY(-50%);
-  } 
-  label:hover span {
-    opacity: 1;
-    transform: none;
-    letter-spacing: 0;
-  }
-  input:checked ~ label::before {
-    content: "\2605";
-    color: rgba(61, 60, 61, 0.445);
-    filter: drop-shadow(0 0 4px);
-    transform: rotate(.2turn);
-    transition-delay: calc(0.1 * attr(data-idx integer));
-  }
-  
 
+.actor-img {
+    height: 300px;
+    object-fit: cover;
+}
 
   
 

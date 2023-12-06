@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Blog , Review
 from django.utils import timezone
+from favorites.models import Favorite
 # Create your views here.
 
 
@@ -69,8 +70,11 @@ def post_detail_view(request:HttpRequest, post_id):
     except Exception as e:
        return render(request, "post/not_exist.html")
     post_reviews = Review.objects.filter(post=post)
+    #check if current logged in user has favored this movie
+    is_favored = Favorite.objects.filter(post= post, user=request.user).exists()
 
-    return render(request, "post/post_detail.html", {"post" : post , "reviews" :post_reviews})
+
+    return render(request, "post/post_detail.html", {"post" : post , "reviews" :post_reviews, "is_favored" : is_favored})
 
 
 def not_exist_view(request:HttpRequest):

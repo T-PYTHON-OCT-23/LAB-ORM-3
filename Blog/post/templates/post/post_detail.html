@@ -18,7 +18,16 @@
              <div class="d-flex align-items-center gap-1 ">
             <h4 class="p-2 m-2">{{ post.category }}</h4>
         </div>
+      
+      <div class="d-flex align-items-center gap-1">
+        {% if not is_favored %}
+        <a href="{% url 'favorites:add_favorite_view' post.id %}" class="favored"><i class="bi bi-heart"></i></a>
+        {% else %}
+        <a href="{% url 'favorites:add_favorite_view' post.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
+        {% endif %}
+       </div>
       </div>
+      
       {% if request.user.is_staff %}
       <div class="dropdown">
           <button class="btn btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,27 +66,7 @@
         <br>
         <hr>
     </section>
-    <div class="stara-a ">
-    <form class=" stara " d-flex flex-column gap-3 justify-content-center align-items-center">
-      <div class="rating">
-        <h3>Give us a rating</h3>
-        <input type='radio' hidden name='rate' id='rating-opt5' data-idx='0'>	
-        <label for='rating-opt5'><span>Very satisfied</span></label>
-    
-        <input type='radio' hidden name='rate' id='rating-opt4' data-idx='1'>
-        <label for='rating-opt4'><span>Somewhat satisfied</span></label>
-    
-        <input type='radio' hidden name='rate' id='rating-opt3' data-idx='2'>
-        <label for='rating-opt3'><span>Neutral</span></label>
-    
-        <input type='radio' hidden name='rate' id='rating-opt2' data-idx='3'>
-        <label for='rating-opt2'><span>Dissatisfied</span></label>
-    
-        <input type='radio' hidden name='rate' id='rating-opt1' data-idx='4'>
-        <label for='rating-opt1'><span>Very Dissatisfied</span></label>
-      </div>
-    </form>
-
+   
     <section class="row mt-5">
       {% if request.user.is_authenticated %}
       <h2>Add Review Reviews:</h2>
